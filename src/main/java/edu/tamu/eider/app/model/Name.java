@@ -1,11 +1,11 @@
 package edu.tamu.eider.app.model;
 
-import java.net.URL;
+import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,16 +13,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @javax.persistence.Entity
-public class Entity {
+public class Name {
 
     @Id
     @GeneratedValue
     private UUID id;
-    
-    @Column(unique = true)
-    private URL url;
-    
-    private String canonicalName;
-    private String notes;
 
+    @ManyToOne
+    private Entity entity;
+
+    private String name;
+    private Date startDate;
+    private Date endDate;
+    private String notes;
 }

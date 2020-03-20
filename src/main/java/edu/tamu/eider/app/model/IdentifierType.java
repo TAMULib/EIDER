@@ -13,16 +13,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @javax.persistence.Entity
-public class Entity {
+public class IdentifierType {
 
     @Id
     @GeneratedValue
     private UUID id;
-    
-    @Column(unique = true)
-    private URL url;
-    
-    private String canonicalName;
-    private String notes;
 
+    @Column(unique = true)
+    private URL namespace;
+
+    private String name;
 }
