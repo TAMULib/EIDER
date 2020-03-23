@@ -18,7 +18,7 @@ public class Entity {
     @Id
     @GeneratedValue
     private UUID id;
-    
+
     @Column(unique = true)
     private URL url;
     
