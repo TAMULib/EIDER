@@ -1,5 +1,8 @@
 package edu.tamu.eider.app.config;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.HEAD;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,17 +28,19 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-        
             .withUser(username)
             .password(passwordEncoder().encode(password))
             .authorities("ROLE_ADMIN");
-            // .roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
+                .antMatchers(GET, "/**/*")
+                    .permitAll()
+                .antMatchers(HEAD, "/**/*")
+                    .permitAll()
                 .anyRequest()
                     .authenticated()
             .and()
