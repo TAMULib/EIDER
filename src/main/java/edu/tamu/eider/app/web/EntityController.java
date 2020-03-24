@@ -7,7 +7,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 
-@BasePathAwareController
+@RepositoryRestController
 public class EntityController {
 
     @Autowired
