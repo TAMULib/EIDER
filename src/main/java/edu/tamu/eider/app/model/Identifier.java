@@ -11,9 +11,13 @@ import javax.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Data
 @NoArgsConstructor
 @javax.persistence.Entity
+@JsonInclude(Include.NON_NULL)
 public class Identifier {
 
     @Id
