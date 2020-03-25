@@ -3,14 +3,12 @@ package edu.tamu.eider.app.web;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
+import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.hateoas.server.EntityLinks;
-import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +24,21 @@ public class EntityController {
     @Autowired
     private EntityRepository entityRepo;
 
+    @RequestMapping(path = "/entity/{uuid}", method = HEAD)
+    public RedirectView redirectHeadToEntity(@PathVariable("uuid") UUID uuid) {
+        Optional<Entity> entityOption = entityRepo.findById(uuid);
+        if (entityOption.isPresent()) {
+            return new RedirectView(entityOption.get().getUrl().toString());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find Entity for provided id");
+        }
+    }
+
+    @RequestMapping(path = "/entity/{url}", method =  GET)
+    public Optional<Entity> findById(@PathVariable("url") URL url) {
+        return entityRepo.findByUrl(url);
+    }
+
     @RequestMapping(path = "/entity/{uuid}/redirect", method = GET)
     public RedirectView redirectGetToEntity(@PathVariable("uuid") UUID uuid) {
         Optional<Entity> entityOption = entityRepo.findById(uuid);
@@ -36,13 +49,4 @@ public class EntityController {
         }
     }
 
-    @RequestMapping(path = "/entity/{uuid}", method = HEAD)
-    public RedirectView redirectHeadToEntity(@PathVariable("uuid") UUID uuid) {
-        Optional<Entity> entityOption = entityRepo.findById(uuid);
-        if (entityOption.isPresent()) {
-            return new RedirectView(entityOption.get().getUrl().toString());
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find Entity for provided id");
-        }
-    }
 }

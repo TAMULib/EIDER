@@ -18,6 +18,10 @@ public class EntityProcessor implements RepresentationModelProcessor<EntityModel
             of(baseUrl + "entity/{id}/redirect").withRel(LinkRelation.of("entity"))
                 .expand(model.getContent().getId())
         );
+        model.add(
+            of(baseUrl + "entity/{url}").withRel(LinkRelation.of("entity"))
+                .expand(model.getContent().getUrl())
+        );
         return model;
     }
 }
