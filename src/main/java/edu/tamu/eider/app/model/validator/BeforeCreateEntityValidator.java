@@ -1,14 +1,11 @@
 package edu.tamu.eider.app.model.validator;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import edu.tamu.eider.app.model.Entity;
-import edu.tamu.eider.app.model.Identifier;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
 
@@ -27,10 +24,10 @@ public class BeforeCreateEntityValidator implements Validator {
 
     public void validate(Object obj, Errors e) {
         Entity entity = (Entity) obj;
-        Optional<Entity> entityOption = entityRepo.findByUrl(entity.getUrl());
-        Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(entity.getUrl().toString());
-        if (entityOption.isPresent() || identifierOption.isPresent()) {
-            e.rejectValue("url", "url.not.unique", "There is already an Entity or Identifier with the given url");
+        if (entityRepo.existsByUrl(entity.getUrl())) {
+            e.rejectValue("url", "url.not.unique", "There is already an Entity with the given url");
+        } else if (identifierRepo.existsByIdentifier(entity.getUrl().toString())) {
+            e.rejectValue("url", "url.not.unique", "There is already an Identifier with the given url");
         }
     }
 }

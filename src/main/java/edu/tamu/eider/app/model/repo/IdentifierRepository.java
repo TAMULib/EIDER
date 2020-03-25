@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import edu.tamu.eider.app.model.Identifier;
 
@@ -14,5 +13,9 @@ import edu.tamu.eider.app.model.Identifier;
 public interface IdentifierRepository extends PagingAndSortingRepository<Identifier, UUID> {
 
     @RestResource(exported = false)
-    public Optional<Identifier> findByIdentifier(@PathVariable("identifier") String identifier);
+    public boolean existsByIdentifier(String identifier);
+
+    @RestResource(exported = false)
+    public Optional<Identifier> findByIdentifier(String identifier);
+
 }
