@@ -18,4 +18,5 @@ public interface EntityRepository extends PagingAndSortingRepository<Entity, UUI
 
     @RestResource(exported = false)
     public boolean existsByUrl(URL url);
+
 }
