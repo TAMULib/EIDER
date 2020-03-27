@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,8 +22,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.Identifier;
+import edu.tamu.eider.app.model.Name;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
+import edu.tamu.eider.app.model.repo.NameRepository;
 
 @BasePathAwareController
 public class EntityController {
@@ -31,6 +35,9 @@ public class EntityController {
 
     @Autowired
     private IdentifierRepository identifierRepo;
+
+    @Autowired
+    private NameRepository nameRepo;
 
     @RequestMapping(path = "/entity/{uuid}", method = HEAD)
     public RedirectView redirectHeadToEntity(@PathVariable("uuid") UUID uuid) {
@@ -43,7 +50,17 @@ public class EntityController {
     }
 
     @ResponseBody
-    @GetMapping("/entity/resolve")
+    @GetMapping("/entity/name")
+    public Optional<List<Entity>> findByAssociatedName(@RequestParam String nameValue) {
+        List<Entity> entities = new ArrayList<Entity>();
+        for (Name name : nameRepo.findByName(nameValue)) {
+            entities.add(name.getEntity());
+        }
+        return Optional.of(entities);
+    }
+
+    @ResponseBody
+    @GetMapping("/entity/url")
     public Optional<Entity> findByUrl(@RequestParam(name = "url") URL url) {
         Optional<Entity> entityOption = entityRepo.findByUrl(url);
         Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url.toString());

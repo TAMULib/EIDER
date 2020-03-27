@@ -19,7 +19,10 @@ public class EntityProcessor implements RepresentationModelProcessor<EntityModel
                 .expand(model.getContent().getId())
         );
         model.add(
-            of(baseUrl + "entity/{url}").withRel(LinkRelation.of("entity"))
+            of(baseUrl + "entity/name?name={name}").withRel(LinkRelation.of("entity"))
+        );
+        model.add(
+            of(baseUrl + "entity/url?url={url}").withRel(LinkRelation.of("entity"))
                 .expand(model.getContent().getUrl())
         );
         return model;
