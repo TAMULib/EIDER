@@ -4,10 +4,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
@@ -51,9 +54,11 @@ public class EntityController {
 
     @ResponseBody
     @GetMapping("/entity/name")
-    public Optional<List<Entity>> findByAssociatedName(@RequestParam String nameValue) {
-        List<Entity> entities = new ArrayList<Entity>();
-        for (Name name : nameRepo.findByName(nameValue)) {
+    public Optional<Set<Entity>> findByAssociatedName(@RequestParam("name") String nameValue)
+            throws JsonProcessingException {
+        Set<Entity> entities = new HashSet<Entity>();
+        List<Name> names = nameRepo.findByName(nameValue);
+        for (Name name : names) {
             entities.add(name.getEntity());
         }
         return Optional.of(entities);
