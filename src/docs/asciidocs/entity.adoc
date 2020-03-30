@@ -1,8 +1,32 @@
 == Entitiy
 
-=== Retreive All
+=== Retrieve All
 
-====
+==== Request
+
+include::{snippets}/get-all-entities/curl-request.adoc[]
+
+==== Response
+
+include::{snippets}/get-all-entities/http-response.adoc[]
+
+=== Retrieve
+
+==== Request
+
+include::{snippets}/get-entity/curl-request.adoc[]
+
+==== Response
+
+include::{snippets}/get-entity/http-response.adoc[]
+
+==== Response Fields
+
+include::{snippets}/get-entity/response-fields.adoc[]
+
+==== Response Links
+
+include::{snippets}/get-entity/links.adoc[]
 
 === Create
 
