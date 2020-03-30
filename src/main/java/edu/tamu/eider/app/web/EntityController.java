@@ -4,11 +4,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
 import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.Identifier;
-import edu.tamu.eider.app.model.Name;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
 import edu.tamu.eider.app.model.repo.NameRepository;
@@ -56,11 +54,9 @@ public class EntityController {
     @GetMapping("/entity/name")
     public Optional<Set<Entity>> findByAssociatedName(@RequestParam("name") String nameValue)
             throws JsonProcessingException {
-        Set<Entity> entities = new HashSet<Entity>();
-        List<Name> names = nameRepo.findByName(nameValue);
-        for (Name name : names) {
-            entities.add(name.getEntity());
-        }
+        Set<Entity> entities = nameRepo.findByName(nameValue).stream()
+            .map(name -> name.getEntity())
+            .collect(Collectors.toSet());
         return Optional.of(entities);
     }
 
