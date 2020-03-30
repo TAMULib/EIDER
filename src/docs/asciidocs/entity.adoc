@@ -1,0 +1,15 @@
+== Entitiy
+
+=== Create
+
+=== Fields
+
+include::{snippets}/create-entity/request-fields.adoc[]
+
+==== Request
+
+include::{snippets}/create-entity/curl-request.adoc[]
+
+==== Response
+
+include::{snippets}/create-entity/http-response.adoc[]
