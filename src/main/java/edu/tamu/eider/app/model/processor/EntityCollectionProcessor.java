@@ -2,7 +2,7 @@ package edu.tamu.eider.app.model.processor;
 
 import static org.springframework.hateoas.Link.of;
 
-import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.LinkRelation;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.stereotype.Component;
@@ -11,21 +11,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import edu.tamu.eider.app.model.Entity;
 
 @Component
-public class EntityProcessor implements RepresentationModelProcessor<EntityModel<Entity>> {
+public class EntityCollectionProcessor implements RepresentationModelProcessor<CollectionModel<Entity>> {
 
     @Override
-    public EntityModel<Entity> process(EntityModel<Entity> model) {
+    public CollectionModel<Entity> process(CollectionModel<Entity> model) {
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        // model.add(
+        //     of(baseUrl + "entity/{id}/redirect").withRel(LinkRelation.of("entity"))
+        //         .expand(model.getContent().getId())
+        // );
         model.add(
-            of(baseUrl + "entity/{id}/redirect")
-                .withRel(LinkRelation.of("redirect"))
-                .expand(model.getContent().getId())
+            of(baseUrl + "entity/name?name={name}").withRel(LinkRelation.of("findByName"))
         );
         model.add(
-            of(baseUrl + "/entity/{uuid}")
-                .withRel(LinkRelation.of("redirectByHead"))
-                .expand(model.getContent().getId())
-                .withType("HEAD")
+            of(baseUrl + "entity/url?url={url}").withRel(LinkRelation.of("findByUrl"))
         );
         return model;
     }
