@@ -4,7 +4,10 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.ha
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -13,12 +16,13 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.subsecti
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -180,6 +184,57 @@ public class EntityControllerTest extends ApiDocumentation {
                 linkWithRel("redirectByHead").description("Redirects HEAD requests to the URL associated with the Entity")
             )
         ));
+    }
+
+    @Test
+    public void testUpdateEntity() throws Exception {
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        this.mockMvc.perform(patch("/entity/{id}", entity.getId().toString())
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(TEST_ENTITY_2))
+        )
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("id").value(entity.getId().toString()))
+        .andExpect(jsonPath("url").value(TEST_ENTITY_2_URL_STRING))
+        .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_2_CANONICAL_NAME))
+        .andExpect(jsonPath("notes").value(TEST_ENTITY_2_NOTES))
+        .andDo(document("update-entity",
+            pathParameters(
+                parameterWithName("id").description("The UUID id of the Entity to be replaced")
+            ),
+            requestFields(
+                fieldWithPath("url").description("The URL of the Entity"),
+                fieldWithPath("canonicalName").description("The canonical name for the Entity"),
+                fieldWithPath("notes").description("Notes describing the Entity")
+            ),
+            responseFields(
+                fieldWithPath("id").description("The UUID id of the Entity"),
+                fieldWithPath("url").description("The URL of the Entity"),
+                fieldWithPath("canonicalName").description("The canonical name for the Entity"),
+                fieldWithPath("notes").description("Notes describing the Entity"),
+                subsectionWithPath("_links").description("A list of links associated with the Entity")
+            ),
+            links(
+                halLinks(),
+                linkWithRel("self").description("The canonical url for this Entity"),
+                linkWithRel("entity").description("A link to the Entity resource"),
+                linkWithRel("redirect").description("Redirects request to the URL associated with the Entity"),
+                linkWithRel("redirectByHead").description("Redirects HEAD requests to the URL associated with the Entity")
+            )
+        ));
+    }
+
+    @Test
+    public void testDeleteEntity() throws Exception {
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString()))
+            .andExpect(status().isNoContent())
+            .andDo(document("delete-entity",
+                pathParameters(
+                    parameterWithName("id").description("The UUID id of the Entity to be replaced")
+                )
+            ));
     }
 
     @AfterEach
