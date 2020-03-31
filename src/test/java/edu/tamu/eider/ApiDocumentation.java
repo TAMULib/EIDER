@@ -35,9 +35,7 @@ public class ApiDocumentation {
         this.mapper = new ObjectMapper();
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
             .apply(documentationConfiguration(restDocumentation))
-            .alwaysDo(document("{method-name}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
             .build();
     }
 
-    
 }

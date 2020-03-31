@@ -1,45 +1,46 @@
-== Entitiy
+== Entitiy API
+
+Endpoints for interacting with Entities
+
 
 === Retrieve All
 
 ==== Request
+include::{snippets}/get-all-entities/http-request.adoc[]
 
-include::{snippets}/get-all-entities/curl-request.adoc[]
+==== Query Parameters
+include::{snippets}/get-all-entities/request-parameters.adoc[]
 
 ==== Response
-
 include::{snippets}/get-all-entities/http-response.adoc[]
+
+==== Links
+include::{snippets}/get-all-entities/links.adoc[]
+
 
 === Retrieve
 
 ==== Request
-
-include::{snippets}/get-entity/curl-request.adoc[]
+include::{snippets}/get-entity/http-request.adoc[]
 
 ==== Response
-
 include::{snippets}/get-entity/http-response.adoc[]
 
 ==== Response Fields
-
 include::{snippets}/get-entity/response-fields.adoc[]
 
 ==== Response Links
-
 include::{snippets}/get-entity/links.adoc[]
+
 
 === Create
 
 ==== Fields
-
 include::{snippets}/create-entity/request-fields.adoc[]
 
 ==== Request
-
-include::{snippets}/create-entity/curl-request.adoc[]
+include::{snippets}/create-entity/http-request.adoc[]
 
 ==== Response
-
 include::{snippets}/create-entity/http-response.adoc[]
 
-=== 
