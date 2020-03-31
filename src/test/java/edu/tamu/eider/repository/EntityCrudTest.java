@@ -1,16 +1,11 @@
 package edu.tamu.eider.repository;
 
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -19,75 +14,16 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.hypermedia.LinksSnippet;
-import org.springframework.restdocs.payload.RequestFieldsSnippet;
-import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
-import edu.tamu.eider.ApiDocumentation;
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.repo.EntityRepository;
+import edu.tamu.eider.resources.EntityTestData;
 
-public class EntityCrudTest extends ApiDocumentation {
-
-    private static final String TEST_ENTITY_1_CANONICAL_NAME = "Example 1";
-    private static final String TEST_ENTITY_1_NOTES = "Example 1 notes";
-    private static final String TEST_ENTITY_1_URL_STRING = "http://www.example.com/1";
-    private static final String TEST_ENTITY_2_CANONICAL_NAME = "Example 2";
-    private static final String TEST_ENTITY_2_NOTES = "Example 2 notes";
-    private static final String TEST_ENTITY_2_URL_STRING = "http://www.example.com/2";
-
-    private static final Entity TEST_ENTITY_1 = new Entity();
-    private static final Entity TEST_ENTITY_2 = new Entity();
-
-    private static final RequestFieldsSnippet ENTITY_REQUEST_FIELDS_SNIPPET = requestFields(
-        fieldWithPath("url").description("The URL of the Entity"),
-        fieldWithPath("canonicalName").description("The canonical name for the Entity"),
-        fieldWithPath("notes").description("Notes describing the Entity")
-    );
-
-    private static final ResponseFieldsSnippet ENTITY_RESPONSE_FIELDS_SNIPPET = responseFields(
-        fieldWithPath("id").description("The UUID id of the Entity"),
-        fieldWithPath("url").description("The URL of the Entity"),
-        fieldWithPath("canonicalName").description("The canonical name for the Entity"),
-        fieldWithPath("notes").description("Notes describing the Entity"),
-        subsectionWithPath("_links").description("A list of links associated with the Entity")
-    );
-
-    private static final LinksSnippet ENTITY_COLLECTION_LINKS = links(
-        halLinks(),
-        linkWithRel("self").description("A link to the Entity collection"),
-        linkWithRel("profile").description("A link to the profile for the Entity collection"),
-        linkWithRel("findByUrl").description("Returns the Entity that either contains the given URL, or is associated with the Identifier that does"),
-        linkWithRel("findByName").description("Returns a list of Entities associated with a Name that matches the given value")
-    );
-
-    private static final LinksSnippet ENTITY_LINKS = links(
-        halLinks(),
-        linkWithRel("self").description("The canonical url for this Entity"),
-        linkWithRel("entity").description("A link to the Entity resource"),
-        linkWithRel("redirect").description("Redirects request to the URL associated with the Entity"),
-        linkWithRel("redirectByHead").description("Redirects HEAD requests to the URL associated with the Entity")
-    );
-
-    static {
-        try {
-            TEST_ENTITY_1.setUrl(new URL(TEST_ENTITY_1_URL_STRING));
-            TEST_ENTITY_2.setUrl(new URL(TEST_ENTITY_2_URL_STRING));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        TEST_ENTITY_1.setCanonicalName(TEST_ENTITY_1_CANONICAL_NAME);
-        TEST_ENTITY_1.setNotes(TEST_ENTITY_1_NOTES);
-        TEST_ENTITY_2.setCanonicalName(TEST_ENTITY_2_CANONICAL_NAME);
-        TEST_ENTITY_2.setNotes(TEST_ENTITY_2_NOTES);
-    }
+public class EntityCrudTest extends EntityTestData {
 
     @Autowired
     private EntityRepository entityRepo;
