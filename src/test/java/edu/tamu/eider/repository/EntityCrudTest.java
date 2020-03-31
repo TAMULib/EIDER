@@ -22,8 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ import edu.tamu.eider.ApiDocumentation;
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 
-public class EntityControllerTest extends ApiDocumentation {
+public class EntityCrudTest extends ApiDocumentation {
 
     private static final String TEST_ENTITY_1_CANONICAL_NAME = "Example 1";
     private static final String TEST_ENTITY_1_NOTES = "Example 1 notes";
