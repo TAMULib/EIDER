@@ -1,4 +1,4 @@
-package edu.tamu.eider.controller;
+package edu.tamu.eider.repository;
 
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
