@@ -13,6 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.data.rest.webmvc.PersistentEntityResource;
+import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,17 +55,19 @@ public class EntityController {
 
     @ResponseBody
     @GetMapping("/entity/name")
-    public Optional<Set<Entity>> findByAssociatedName(@RequestParam("name") String nameValue)
+    public CollectionModel<PersistentEntityResource> findByAssociatedName(@RequestParam("name") String nameValue, PersistentEntityResourceAssembler assembler)
             throws JsonProcessingException {
-        Set<Entity> entities = nameRepo.findByName(nameValue).stream()
+        
+        Set<PersistentEntityResource> entities = nameRepo.findByName(nameValue).stream()
             .map(name -> name.getEntity())
+            .map(ent -> assembler.toFullResource(ent))
             .collect(Collectors.toSet());
-        return Optional.of(entities);
+        return CollectionModel.of(entities);
     }
 
     @ResponseBody
     @GetMapping("/entity/url")
-    public Optional<Entity> findByUrl(@RequestParam(name = "url") URL url) {
+    public PersistentEntityResource findByUrl(@RequestParam(name = "url") URL url, PersistentEntityResourceAssembler assembler) {
         Optional<Entity> entityOption = entityRepo.findByUrl(url);
         Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url.toString());
         if (identifierOption.isPresent()) {
@@ -70,7 +75,7 @@ public class EntityController {
         } else if (entityOption.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find any Entity or Identifier that matches the given url");
         }
-        return entityOption;
+        return assembler.toFullResource(entityOption.get());
     }
 
     @RequestMapping(path = "/entity/{uuid}/redirect", method = GET)
