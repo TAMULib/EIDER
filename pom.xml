@@ -146,6 +146,13 @@
                 </formats>
                 <aggregate>true</aggregate>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun.java</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>11.0.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
