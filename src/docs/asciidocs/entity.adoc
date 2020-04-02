@@ -109,3 +109,60 @@ include::{snippets}/delete-entity/path-parameters.adoc[]
 
 ==== Response
 include::{snippets}/delete-entity/http-response.adoc[]
+
+
+=== Redirect HEAD Request
+
+==== Request
+include::{snippets}/redirect-head-to-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/redirect-head-to-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/redirect-head-to-entity/http-response.adoc[]
+
+
+=== Redirect GET Request
+
+==== Request
+include::{snippets}/redirect-get-to-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/redirect-get-to-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/redirect-get-to-entity/http-response.adoc[]
+
+
+=== Find Entity By URL
+
+==== Request
+include::{snippets}/find-by-url/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/find-by-url/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/find-by-url/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/find-by-url/response-fields.adoc[]
+
+==== Links
+include::{snippets}/find-by-url/links.adoc[]
+
+
+=== Find Entities By Name
+
+==== Request
+include::{snippets}/find-by-name/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/find-by-name/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/find-by-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/find-by-name/response-fields.adoc[]
