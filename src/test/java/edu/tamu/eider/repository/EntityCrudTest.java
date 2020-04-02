@@ -6,6 +6,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -61,7 +62,8 @@ public class EntityCrudTest extends EntityTestData {
         this.mockMvc
             .perform(get("/entity/{id}", entity.getId().toString())
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+            )
             .andExpect(status().isOk())
             .andExpect(jsonPath("id").value(entity.getId().toString()))
             .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
@@ -82,7 +84,8 @@ public class EntityCrudTest extends EntityTestData {
             .perform(post("/entity")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(TEST_ENTITY_1)))
+                .content(mapper.writeValueAsString(TEST_ENTITY_1))
+            )
             .andExpect(status().isCreated())
             .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
             .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_1_CANONICAL_NAME))

@@ -30,4 +30,11 @@ public class Name {
     private Date startDate;
     private Date endDate;
     private String notes;
+
+    public Name(String name, String notes, Entity entity) {
+        super();
+        this.name = name;
+        this.notes = notes;
+        this.entity = entity;
+    }
 }
