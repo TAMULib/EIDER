@@ -4,7 +4,7 @@ jdk:
   - openjdk11
 
 install:
-  - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn test-compile -DskipTests -Dmaven.javadoc.skip=true -B -V
 
 after_success:
   - mvn clean test
