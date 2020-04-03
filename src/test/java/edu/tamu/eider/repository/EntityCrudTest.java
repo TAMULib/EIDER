@@ -11,6 +11,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.subsecti
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -85,7 +86,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testCreateEntity() throws Exception {
         this.mockMvc
             .perform(post("/entity")
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+                .with(httpBasic("admin", "admin"))
                 .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(TEST_ENTITY_1))
@@ -106,7 +107,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testReplaceEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(put("/entity/{id}", entity.getId().toString())
-            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .with(httpBasic("admin", "admin"))
             .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
@@ -131,7 +132,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testUpdateEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(patch("/entity/{id}", entity.getId().toString())
-            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .with(httpBasic("admin", "admin"))
             .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
@@ -156,7 +157,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testDeleteEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString())
-            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .with(httpBasic("admin", "admin"))
         )
             .andExpect(status().isNoContent())
             .andDo(document("delete-entity",
