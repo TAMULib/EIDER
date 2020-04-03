@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +24,10 @@ public class Name {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Entity entity;
 
+    @Size(max = 250)
     private String name;
     private Date startDate;
     private Date endDate;

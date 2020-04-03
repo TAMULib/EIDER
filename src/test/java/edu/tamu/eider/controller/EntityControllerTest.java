@@ -11,11 +11,13 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
 import edu.tamu.eider.app.model.Entity;
@@ -54,11 +56,12 @@ public class EntityControllerTest extends EntityTestData {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc
             .perform(get("/entity/url")
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("url", entity.getUrl().toString())
             )
             .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("id").value(entity.getId().toString()))
             .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
             .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_1_CANONICAL_NAME))
@@ -81,11 +84,12 @@ public class EntityControllerTest extends EntityTestData {
         nameRepo.save(new Name(TEST_NAME_NAME, TEST_NAME_2_NOTES, entity2));
         this.mockMvc
             .perform(get("/entity/name")
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("name", TEST_NAME_NAME)
             )
             .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("_embedded.entity", hasSize(2)))
             .andDo(document("find-by-name",
                 requestParameters(

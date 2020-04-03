@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.validation.Validator;
 
+// Workaround for know spring bug documented here: https://jira.spring.io/browse/DATAREST-524
 @Configuration
 public class ValidatorEventRegister implements InitializingBean {
 

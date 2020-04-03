@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,6 @@ public class IdentifierType {
     @Column(unique = true)
     private URL namespace;
 
+    @Size(max = 250)
     private String name;
 }

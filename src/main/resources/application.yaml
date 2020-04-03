@@ -1,6 +1,7 @@
 server:
-  port: 9000
-  contextPath:
+  servlet:
+    port: 9000
+    contextPath:
 
 spring:
 

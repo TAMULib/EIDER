@@ -24,7 +24,7 @@ public class Identifier {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Entity entity;
 
     @Column(unique = true)

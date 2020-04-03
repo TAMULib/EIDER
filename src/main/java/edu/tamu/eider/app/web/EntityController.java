@@ -68,11 +68,11 @@ public class EntityController {
     @ResponseBody
     @GetMapping("/entity/url")
     public PersistentEntityResource findByUrl(@RequestParam(name = "url") URL url, PersistentEntityResourceAssembler assembler) {
-        Optional<Entity> entityOption = entityRepo.findByUrl(url);
+        Optional<Entity> entityOption;
         Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url.toString());
         if (identifierOption.isPresent()) {
             entityOption = Optional.of(identifierOption.get().getEntity());
-        } else if (entityOption.isEmpty()) {
+        } else if (!(entityOption = entityRepo.findByUrl(url)).isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find any Entity or Identifier that matches the given url");
         }
         return assembler.toFullResource(entityOption.get());

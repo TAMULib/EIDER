@@ -12,11 +12,13 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
 import edu.tamu.eider.app.model.Entity;
@@ -34,12 +36,13 @@ public class EntityCrudTest extends EntityTestData {
         entityRepo.save(TEST_ENTITY_2);
         this.mockMvc
             .perform(get("/entity")
-                .accept(MediaType.APPLICATION_JSON)
+            .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("page", "0")
                 .param("size", "25")
                 .param("sort", "desc"))
             .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andDo(document("get-all-entities",
                 requestParameters(
                     parameterWithName("page").description("The page of Entities to retrieve"),
@@ -60,10 +63,11 @@ public class EntityCrudTest extends EntityTestData {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc
             .perform(get("/entity/{id}", entity.getId().toString())
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("id").value(entity.getId().toString()))
             .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
             .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_1_CANONICAL_NAME))
@@ -81,11 +85,13 @@ public class EntityCrudTest extends EntityTestData {
     public void testCreateEntity() throws Exception {
         this.mockMvc
             .perform(post("/entity")
-                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+                .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(TEST_ENTITY_1))
             )
             .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
             .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_1_CANONICAL_NAME))
             .andExpect(jsonPath("notes").value(TEST_ENTITY_1_NOTES))
@@ -100,11 +106,13 @@ public class EntityCrudTest extends EntityTestData {
     public void testReplaceEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(put("/entity/{id}", entity.getId().toString())
-            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
         )
         .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaTypes.HAL_JSON))
         .andExpect(jsonPath("id").value(entity.getId().toString()))
         .andExpect(jsonPath("url").value(TEST_ENTITY_2_URL_STRING))
         .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_2_CANONICAL_NAME))
@@ -123,11 +131,13 @@ public class EntityCrudTest extends EntityTestData {
     public void testUpdateEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(patch("/entity/{id}", entity.getId().toString())
-            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
         )
         .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaTypes.HAL_JSON))
         .andExpect(jsonPath("id").value(entity.getId().toString()))
         .andExpect(jsonPath("url").value(TEST_ENTITY_2_URL_STRING))
         .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_2_CANONICAL_NAME))
@@ -145,7 +155,9 @@ public class EntityCrudTest extends EntityTestData {
     @Test
     public void testDeleteEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
-        this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString()))
+        this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString())
+            .header("Authorization", "Basic YWRtaW46YWRtaW4=")
+        )
             .andExpect(status().isNoContent())
             .andDo(document("delete-entity",
                 pathParameters(
