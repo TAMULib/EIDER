@@ -1,0 +1,31 @@
+server:
+  servlet:
+    port: 9000
+    contextPath:
+
+spring:
+
+  datasource:
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    # platform: postgres
+    # driverClassName: org.postgresql.Driver
+    # url: jdbc:postgresql://10.0.2.2:5432/eider
+
+    username: spring
+    password: spring
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    # database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+    show-sql: false
+    hibernate.ddl-auto: update
+
+app:
+  username: admin
+  password: admin
+
+  security:
+    allow-access: http://localhost,http://localhost:9000,http://127.0.0.1

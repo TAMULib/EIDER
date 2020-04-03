@@ -1,0 +1,168 @@
+== Entitiy API
+
+Endpoints for interacting with Entities
+
+
+=== Retrieve All
+
+==== Request
+include::{snippets}/get-all-entities/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/get-all-entities/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-all-entities/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-all-entities/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-all-entities/links.adoc[]
+
+
+=== Retrieve
+
+==== Request
+include::{snippets}/get-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/get-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-entity/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-entity/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-entity/links.adoc[]
+
+
+=== Create
+
+==== Request
+include::{snippets}/create-entity/http-request.adoc[]
+
+==== Request Fields
+include::{snippets}/create-entity/request-fields.adoc[]
+
+==== Response
+include::{snippets}/create-entity/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/create-entity/response-fields.adoc[]
+
+==== Links
+include::{snippets}/create-entity/links.adoc[]
+
+
+=== Replace
+
+==== Request
+include::{snippets}/replace-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/replace-entity/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/replace-entity/request-fields.adoc[]
+
+==== Response
+include::{snippets}/replace-entity/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/replace-entity/response-fields.adoc[]
+
+==== Links
+include::{snippets}/replace-entity/links.adoc[]
+
+
+=== Update
+
+==== Request
+include::{snippets}/update-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/update-entity/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/update-entity/request-fields.adoc[]
+
+==== Response
+include::{snippets}/update-entity/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/update-entity/response-fields.adoc[]
+
+==== Links
+include::{snippets}/update-entity/links.adoc[]
+
+
+=== Delete
+
+==== Request
+include::{snippets}/delete-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/delete-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/delete-entity/http-response.adoc[]
+
+
+=== Redirect HEAD Request
+
+==== Request
+include::{snippets}/redirect-head-to-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/redirect-head-to-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/redirect-head-to-entity/http-response.adoc[]
+
+
+=== Redirect GET Request
+
+==== Request
+include::{snippets}/redirect-get-to-entity/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/redirect-get-to-entity/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/redirect-get-to-entity/http-response.adoc[]
+
+
+=== Find Entity By URL
+
+==== Request
+include::{snippets}/find-by-url/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/find-by-url/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/find-by-url/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/find-by-url/response-fields.adoc[]
+
+==== Links
+include::{snippets}/find-by-url/links.adoc[]
+
+
+=== Find Entities By Name
+
+==== Request
+include::{snippets}/find-by-name/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/find-by-name/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/find-by-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/find-by-name/response-fields.adoc[]
