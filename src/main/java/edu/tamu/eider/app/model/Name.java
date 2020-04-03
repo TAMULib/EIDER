@@ -29,8 +29,11 @@ public class Name {
 
     @Size(max = 250)
     private String name;
+
     private Date startDate;
     private Date endDate;
+
+    @Size(max = 250)
     private String notes;
 
     public Name(String name, String notes, Entity entity) {

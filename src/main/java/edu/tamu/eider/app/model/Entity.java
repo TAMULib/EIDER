@@ -29,6 +29,8 @@ public class Entity {
 
     @Size(max = 250)
     private String canonicalName;
+
+    @Size(max = 250)
     private String notes;
 
 }
