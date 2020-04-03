@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
@@ -27,6 +28,12 @@ import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.resources.EntityTestData;
 
 public class EntityCrudTest extends EntityTestData {
+
+    @Value("${app.username}")
+    private String username;
+
+    @Value("${app.password}")
+    private String password;
 
     @Autowired
     private EntityRepository entityRepo;
@@ -86,7 +93,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testCreateEntity() throws Exception {
         this.mockMvc
             .perform(post("/entity")
-                .with(httpBasic("admin", "admin"))
+                .with(httpBasic(username, password))
                 .accept(MediaTypes.HAL_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(TEST_ENTITY_1))
@@ -107,7 +114,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testReplaceEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(put("/entity/{id}", entity.getId().toString())
-            .with(httpBasic("admin", "admin"))
+            .with(httpBasic(username, password))
             .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
@@ -132,7 +139,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testUpdateEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(patch("/entity/{id}", entity.getId().toString())
-            .with(httpBasic("admin", "admin"))
+            .with(httpBasic(username, password))
             .accept(MediaTypes.HAL_JSON)
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(TEST_ENTITY_2))
@@ -157,7 +164,7 @@ public class EntityCrudTest extends EntityTestData {
     public void testDeleteEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString())
-            .with(httpBasic("admin", "admin"))
+            .with(httpBasic(username, password))
         )
             .andExpect(status().isNoContent())
             .andDo(document("delete-entity",
