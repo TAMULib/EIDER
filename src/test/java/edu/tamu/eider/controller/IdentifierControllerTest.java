@@ -43,7 +43,7 @@ public class IdentifierControllerTest extends EntityTestData {
     @Test
     public void testRedirectHeadToEntityWithoutMatch() throws Exception {
         this.mockMvc
-            .perform(head("/identifier/{id}", UUID.randomUUID().toString()))
+            .perform(head("/identifier").param("url", TEST_ENTITY_2_URL_STRING))
             .andExpect(status().isNotFound());
     }
 
