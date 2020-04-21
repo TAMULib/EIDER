@@ -214,7 +214,6 @@ public class IdentifierCrudTest extends IdentifierTestData {
                     linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
                 )
             ));
-
     }
 
     @Test
@@ -289,7 +288,7 @@ public class IdentifierCrudTest extends IdentifierTestData {
                 .with(httpBasic(username, password))
             )
             .andExpect(status().isNoContent())
-            .andDo(document("delete-identifier", 
+            .andDo(document("delete-identifier",
                 pathParameters(
                     parameterWithName("id").description("The UUID id of the Identifier to delete")
                 )
