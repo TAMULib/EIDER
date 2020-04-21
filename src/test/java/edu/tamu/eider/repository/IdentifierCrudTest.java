@@ -1,15 +1,26 @@
 package edu.tamu.eider.repository;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +29,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
+import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.Identifier;
+import edu.tamu.eider.app.model.IdentifierType;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
 import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;
@@ -86,6 +99,55 @@ public class IdentifierCrudTest extends IdentifierTestData {
             .andDo(document("get-identifier",
                 pathParameters(
                     parameterWithName("id").description("The UUID id of the Identifer to be retrieved")
+                )
+            ));
+    }
+
+    @Test
+    public void testCreateIdentifier() throws Exception {
+        IdentifierType identifierType = identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        Map<String, Object> identifierMap = new HashMap<>();
+        identifierMap.put("identifier", TEST_IDENTIFIER_1_IDENTIFIER);
+        identifierMap.put("notes", TEST_IDENTIFIER_1_NOTES);
+        identifierMap.put("startDate", TEST_IDENTIFIER_1_START_DATE.toString());
+        identifierMap.put("endDate", TEST_IDENTIFIER_1_END_DATE.toString());
+        identifierMap.put("entity", linkTo(EntityRepository.class).slash(entity.getId()).withSelfRel().getHref());
+        identifierMap.put("identifierType", linkTo(IdentifierTypeRepository.class).slash(identifierType.getId()).withSelfRel().getHref());
+        this.mockMvc
+            .perform(post("/identifier")
+                .with(httpBasic(username, password))
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(identifierMap))
+            )
+            .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
+            .andExpect(jsonPath("identifier").value(TEST_IDENTIFIER_1_IDENTIFIER))
+            .andExpect(jsonPath("notes").value(TEST_IDENTIFIER_1_NOTES))
+            .andDo(document("create-identifier",
+                requestFields(
+                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
+                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
+                    fieldWithPath("startDate").description("The date the Identifier became active"),
+                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
+                    fieldWithPath("identifierType").description("The IdentifierType associated with the Identifier"),
+                    fieldWithPath("entity").description("The Entity associated with the Identifier")
+                ),
+                responseFields(
+                    fieldWithPath("id").description("The UUID id of the Identifier"),
+                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
+                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
+                    fieldWithPath("startDate").description("The date the Identifier became active"),
+                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
+                    subsectionWithPath("_links").description("A list of links associated with the Identifier")
+                ),
+                links(
+                    halLinks(),
+                    linkWithRel("self").description("The canoncial url for this Identifier"),
+                    linkWithRel("identifier").description("A link to the Identifier resource"),
+                    linkWithRel("entity").description("A link to the Entity associated with this Identifier"),
+                    linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
                 )
             ));
     }
