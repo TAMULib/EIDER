@@ -13,3 +13,4 @@
 [%hardbreaks]
 
 include::entity.adoc[]
+include::identifier.adoc[]
