@@ -166,12 +166,12 @@ public class EntityCrudTest extends EntityTestData {
         this.mockMvc.perform(delete("/entity/{id}", entity.getId().toString())
             .with(httpBasic(username, password))
         )
-            .andExpect(status().isNoContent())
-            .andDo(document("delete-entity",
-                pathParameters(
-                    parameterWithName("id").description("The UUID id of the Entity to be replaced")
-                )
-            ));
+        .andExpect(status().isNoContent())
+        .andDo(document("delete-entity",
+            pathParameters(
+                parameterWithName("id").description("The UUID id of the Entity to be replaced")
+            )
+        ));
     }
 
     @AfterEach
