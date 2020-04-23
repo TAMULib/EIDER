@@ -1,0 +1,110 @@
+== Identifier Type API
+
+Endpoints for interacting with Identifier Types
+
+
+=== Retrieve All
+
+==== Request
+include::{snippets}/get-all-identifier-types/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/get-all-identifier-types/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-all-identifier-types/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-all-identifier-types/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-all-identifier-types/links.adoc[]
+
+=== Retrieve
+
+==== Request
+include::{snippets}/get-identifier-type/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/get-identifier-type/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-identifier-type/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-identifier-type/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-identifier-type/links.adoc[]
+
+
+=== Create
+
+==== Request
+include::{snippets}/create-identifier-type/http-request.adoc[]
+
+==== Request Fields
+include::{snippets}/create-identifier-type/request-fields.adoc[]
+
+==== Response
+include::{snippets}/create-identifier-type/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/create-identifier-type/response-fields.adoc[]
+
+==== Links
+include::{snippets}/create-identifier-type/links.adoc[]
+
+
+=== Replace
+
+==== Request
+include::{snippets}/replace-identifier-type/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/replace-identifier-type/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/replace-identifier-type/request-fields.adoc[]
+
+==== Response
+include::{snippets}/replace-identifier-type/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/replace-identifier-type/response-fields.adoc[]
+
+==== Links
+include::{snippets}/replace-identifier-type/links.adoc[]
+
+
+=== Update
+
+==== Request
+include::{snippets}/update-identifier-type/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/update-identifier-type/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/update-identifier-type/request-fields.adoc[]
+
+==== Response
+include::{snippets}/update-identifier-type/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/update-identifier-type/response-fields.adoc[]
+
+==== Links
+include::{snippets}/update-identifier-type/links.adoc[]
+
+
+=== Delete
+
+==== Request
+include::{snippets}/delete-identifier-type/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/delete-identifier-type/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/delete-identifier-type/http-response.adoc[]
