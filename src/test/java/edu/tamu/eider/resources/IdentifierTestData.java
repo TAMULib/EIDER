@@ -1,8 +1,20 @@
 package edu.tamu.eider.resources;
 
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+
+import org.springframework.restdocs.hypermedia.LinksSnippet;
+import org.springframework.restdocs.payload.RequestFieldsSnippet;
+import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
 import edu.tamu.eider.ApiDocumentation;
 import edu.tamu.eider.app.model.Entity;
@@ -31,6 +43,32 @@ public class IdentifierTestData extends ApiDocumentation {
     protected static final Entity TEST_ENTITY_1 = new Entity();
     protected static final Identifier TEST_IDENTIFIER_1 = new Identifier();
     protected static final Identifier TEST_IDENTIFIER_2 = new Identifier();
+
+    protected static final RequestFieldsSnippet IDENTIFIER_REQUEST_FIELDS = requestFields(
+        fieldWithPath("notes").description("The notes used to describe the Identifier"),
+        fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
+        fieldWithPath("startDate").description("The date the Identifier became active"),
+        fieldWithPath("endDate").description("The date the Identifier became inactive"),
+        fieldWithPath("identifierType").description("The IdentifierType associated with the Identifier"),
+        fieldWithPath("entity").description("The Entity associated with the Identifier")
+    );
+
+    protected static final ResponseFieldsSnippet IDENTIFIER_RESPONSE_FIELDS = responseFields(
+        fieldWithPath("id").description("The UUID id of the Identifier"),
+        fieldWithPath("notes").description("The notes used to describe the Identifier"),
+        fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
+        fieldWithPath("startDate").description("The date the Identifier became active"),
+        fieldWithPath("endDate").description("The date the Identifier became inactive"),
+        subsectionWithPath("_links").description("A list of links associated with the Identifier")
+    );
+
+    protected static final LinksSnippet IDENTIFIER_LINKS = links(
+        halLinks(),
+        linkWithRel("self").description("The canoncial url for this Identifier"),
+        linkWithRel("identifier").description("A link to the Identifier resource"),
+        linkWithRel("entity").description("A link to the Entity associated with this Identifier"),
+        linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
+    );
 
     static {
         try {

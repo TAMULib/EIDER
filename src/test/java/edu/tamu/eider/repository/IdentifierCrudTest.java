@@ -11,8 +11,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -82,6 +80,11 @@ public class IdentifierCrudTest extends IdentifierTestData {
                     subsectionWithPath("_embedded").description("A list of the Identifiers on the page"),
                     subsectionWithPath("_links").description("A list of links associated with the Identifier collection"),
                     subsectionWithPath("page").description("A description of the attributes of the page")
+                ),
+                links(
+                    halLinks(),
+                    linkWithRel("self").description("The canonical URL for this Identifier"),
+                    linkWithRel("profile").description("A link to the Identifier resource")
                 )
             ));
     }
@@ -100,10 +103,14 @@ public class IdentifierCrudTest extends IdentifierTestData {
             .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("id").value(identifier.getId().toString()))
             .andExpect(jsonPath("identifier").value(TEST_IDENTIFIER_1_IDENTIFIER))
+            .andExpect(jsonPath("startDate").value(TEST_IDENTIFIER_1_START_DATE.toString()))
+            .andExpect(jsonPath("endDate").value(TEST_IDENTIFIER_1_END_DATE.toString()))
             .andDo(document("get-identifier",
                 pathParameters(
                     parameterWithName("id").description("The UUID id of the Identifer to be retrieved")
-                )
+                ),
+                IDENTIFIER_RESPONSE_FIELDS,
+                IDENTIFIER_LINKS
             ));
     }
 
@@ -129,30 +136,12 @@ public class IdentifierCrudTest extends IdentifierTestData {
             .andExpect(content().contentType(MediaTypes.HAL_JSON))
             .andExpect(jsonPath("identifier").value(TEST_IDENTIFIER_1_IDENTIFIER))
             .andExpect(jsonPath("notes").value(TEST_IDENTIFIER_1_NOTES))
+            .andExpect(jsonPath("startDate").value(TEST_IDENTIFIER_1_START_DATE.toString()))
+            .andExpect(jsonPath("endDate").value(TEST_IDENTIFIER_1_END_DATE.toString()))
             .andDo(document("create-identifier",
-                requestFields(
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    fieldWithPath("identifierType").description("The IdentifierType associated with the Identifier"),
-                    fieldWithPath("entity").description("The Entity associated with the Identifier")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("The UUID id of the Identifier"),
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    subsectionWithPath("_links").description("A list of links associated with the Identifier")
-                ),
-                links(
-                    halLinks(),
-                    linkWithRel("self").description("The canoncial url for this Identifier"),
-                    linkWithRel("identifier").description("A link to the Identifier resource"),
-                    linkWithRel("entity").description("A link to the Entity associated with this Identifier"),
-                    linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
-                )
+                IDENTIFIER_REQUEST_FIELDS,
+                IDENTIFIER_RESPONSE_FIELDS,
+                IDENTIFIER_LINKS
             ));
     }
 
@@ -190,29 +179,9 @@ public class IdentifierCrudTest extends IdentifierTestData {
                 pathParameters(
                     parameterWithName("id").description("The UUID id of the Identifier to be replaced")
                 ),
-                requestFields(
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    fieldWithPath("identifierType").description("The IdentifierType associated with the Identifier"),
-                    fieldWithPath("entity").description("The Entity associated with the Identifier")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("The UUID id of the Identifier"),
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    subsectionWithPath("_links").description("A list of links associated with the Identifier")
-                ),
-                links(
-                    halLinks(),
-                    linkWithRel("self").description("The canoncial url for this Identifier"),
-                    linkWithRel("identifier").description("A link to the Identifier resource"),
-                    linkWithRel("entity").description("A link to the Entity associated with this Identifier"),
-                    linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
-                )
+                IDENTIFIER_REQUEST_FIELDS,
+                IDENTIFIER_RESPONSE_FIELDS,
+                IDENTIFIER_LINKS
             ));
     }
 
@@ -250,29 +219,9 @@ public class IdentifierCrudTest extends IdentifierTestData {
                 pathParameters(
                     parameterWithName("id").description("The UUID id of the Identifier to be replaced")
                 ),
-                requestFields(
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    fieldWithPath("identifierType").description("The IdentifierType associated with the Identifier"),
-                    fieldWithPath("entity").description("The Entity associated with the Identifier")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("The UUID id of the Identifier"),
-                    fieldWithPath("notes").description("The notes used to describe the Identifier"),
-                    fieldWithPath("identifier").description("The identifier property of the Identifier entity"),
-                    fieldWithPath("startDate").description("The date the Identifier became active"),
-                    fieldWithPath("endDate").description("The date the Identifier became inactive"),
-                    subsectionWithPath("_links").description("A list of links associated with the Identifier")
-                ),
-                links(
-                    halLinks(),
-                    linkWithRel("self").description("The canoncial url for this Identifier"),
-                    linkWithRel("identifier").description("A link to the Identifier resource"),
-                    linkWithRel("entity").description("A link to the Entity associated with this Identifier"),
-                    linkWithRel("identifierType").description("A link to the IdentifierType associated with this Identifier")
-                )
+                IDENTIFIER_REQUEST_FIELDS,
+                IDENTIFIER_RESPONSE_FIELDS,
+                IDENTIFIER_LINKS
             ));
     }
 
