@@ -14,6 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,10 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
 import edu.tamu.eider.app.model.Entity;
+import edu.tamu.eider.app.model.Identifier;
 import edu.tamu.eider.app.model.Name;
 import edu.tamu.eider.app.model.repo.EntityRepository;
+import edu.tamu.eider.app.model.repo.IdentifierRepository;
 import edu.tamu.eider.app.model.repo.NameRepository;
 import edu.tamu.eider.resources.EntityTestData;
 
@@ -34,6 +38,9 @@ public class EntityControllerTest extends EntityTestData {
 
     @Autowired
     private EntityRepository entityRepo;
+
+    @Autowired
+    private IdentifierRepository identifierRepo;
 
     @Autowired
     private NameRepository nameRepo;
@@ -49,6 +56,13 @@ public class EntityControllerTest extends EntityTestData {
                     parameterWithName("id").description("The UUID id of the Entity whose URL the response will redirect to")
                 )
             ));
+    }
+    
+    @Test
+    public void testRedirectHeadToEntityWihtoutMatch() throws Exception {
+        this.mockMvc
+            .perform(head("/entity/{id}", UUID.randomUUID().toString()))
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -74,6 +88,31 @@ public class EntityControllerTest extends EntityTestData {
                 ENTITY_LINKS
             
             ));
+    }
+
+    @Test
+    public void testFindByUrlFromIdentifier() throws Exception {
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        Identifier identifier = identifierRepo.save(TEST_IDENTIFIER);
+        this.mockMvc
+            .perform(get("/entity/url")
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("url", identifier.getIdentifier())
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaTypes.HAL_JSON))
+            .andExpect(jsonPath("id").value(entity.getId().toString()))
+            .andExpect(jsonPath("url").value(TEST_ENTITY_1_URL_STRING))
+            .andExpect(jsonPath("canonicalName").value(TEST_ENTITY_1_CANONICAL_NAME))
+            .andExpect(jsonPath("notes").value(TEST_ENTITY_1_NOTES));
+    }
+
+    @Test
+    public void testFindByUrlWithoutMatch() throws Exception {
+        this.mockMvc
+            .perform(get("/entity/url").param("url", TEST_ENTITY_2_URL_STRING))
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -119,8 +158,16 @@ public class EntityControllerTest extends EntityTestData {
 
     }
 
+    @Test
+    public void testRedirectGetToEntityWithoutMatch() throws Exception {
+        this.mockMvc
+            .perform(get("/entity/{id}/redirect", UUID.randomUUID().toString()))
+            .andExpect(status().isNotFound());
+    }
+
     @AfterEach
     public void cleanUp() {
+        identifierRepo.deleteAll();
         nameRepo.deleteAll();
         entityRepo.deleteAll();
         // Entity id is somehow being set before the create entity test

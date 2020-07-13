@@ -1,6 +1,6 @@
 package edu.tamu.eider.app.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -32,8 +32,8 @@ public class Identifier {
     @Column(unique = true)
     private String identifier;
 
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Size(max = 250)
     private String notes;

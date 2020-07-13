@@ -15,14 +15,15 @@ public class EntityCollectionProcessor implements RepresentationModelProcessor<C
 
     @Override
     public CollectionModel<Entity> process(CollectionModel<Entity> model) {
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        
-        model.add(
-            of(baseUrl + "/entity/name?name={name}").withRel(LinkRelation.of("findByName"))
-        );
-        model.add(
-            of(baseUrl + "/entity/url?url={url}").withRel(LinkRelation.of("findByUrl"))
-        );
+        if (model.getLinks().getLink("self").toString().contains("entity")) {
+            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+            model.add(
+                of(baseUrl + "/entity/name?name={name}").withRel(LinkRelation.of("findByName"))
+            );
+            model.add(
+                of(baseUrl + "/entity/url?url={url}").withRel(LinkRelation.of("findByUrl"))
+            );
+        }
         return model;
     }
 }

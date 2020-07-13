@@ -1,0 +1,110 @@
+== Name API
+
+Endpoints for interacting with Names
+
+
+=== Retrieve All
+
+==== Request
+include::{snippets}/get-all-names/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/get-all-names/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-all-names/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-all-names/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-all-names/links.adoc[]
+
+=== Retrieve
+
+==== Request
+include::{snippets}/get-name/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/get-name/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-name/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-name/links.adoc[]
+
+
+=== Create
+
+==== Request
+include::{snippets}/create-name/http-request.adoc[]
+
+==== Request Fields
+include::{snippets}/create-name/request-fields.adoc[]
+
+==== Response
+include::{snippets}/create-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/create-name/response-fields.adoc[]
+
+==== Links
+include::{snippets}/create-name/links.adoc[]
+
+
+=== Replace
+
+==== Request
+include::{snippets}/replace-name/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/replace-name/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/replace-name/request-fields.adoc[]
+
+==== Response
+include::{snippets}/replace-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/replace-name/response-fields.adoc[]
+
+==== Links
+include::{snippets}/replace-name/links.adoc[]
+
+
+=== Update
+
+==== Request
+include::{snippets}/update-name/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/update-name/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/update-name/request-fields.adoc[]
+
+==== Response
+include::{snippets}/update-name/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/update-name/response-fields.adoc[]
+
+==== Links
+include::{snippets}/update-name/links.adoc[]
+
+
+=== Delete
+
+==== Request
+include::{snippets}/delete-name/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/delete-name/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/delete-name/http-response.adoc[]

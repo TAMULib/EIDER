@@ -1,0 +1,110 @@
+== Identifier API
+
+Endpoints for interacting with Identifiers
+
+
+=== Retrieve All
+
+==== Request
+include::{snippets}/get-all-identifiers/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/get-all-identifiers/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-all-identifiers/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-all-identifiers/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-all-identifiers/links.adoc[]
+
+=== Retrieve
+
+==== Request
+include::{snippets}/get-identifier/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/get-identifier/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/get-identifier/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/get-identifier/response-fields.adoc[]
+
+==== Links
+include::{snippets}/get-identifier/links.adoc[]
+
+
+=== Create
+
+==== Request
+include::{snippets}/create-identifier/http-request.adoc[]
+
+==== Request Fields
+include::{snippets}/create-identifier/request-fields.adoc[]
+
+==== Response
+include::{snippets}/create-identifier/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/create-identifier/response-fields.adoc[]
+
+==== Links
+include::{snippets}/create-identifier/links.adoc[]
+
+
+=== Replace
+
+==== Request
+include::{snippets}/replace-identifier/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/replace-identifier/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/replace-identifier/request-fields.adoc[]
+
+==== Response
+include::{snippets}/replace-identifier/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/replace-identifier/response-fields.adoc[]
+
+==== Links
+include::{snippets}/replace-identifier/links.adoc[]
+
+
+=== Update
+
+==== Request
+include::{snippets}/update-identifier/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/update-identifier/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippets}/update-identifier/request-fields.adoc[]
+
+==== Response
+include::{snippets}/update-identifier/http-response.adoc[]
+
+==== Response Fields
+include::{snippets}/update-identifier/response-fields.adoc[]
+
+==== Links
+include::{snippets}/update-identifier/links.adoc[]
+
+
+=== Delete
+
+==== Request
+include::{snippets}/delete-identifier/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/delete-identifier/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/delete-identifier/http-response.adoc[]
