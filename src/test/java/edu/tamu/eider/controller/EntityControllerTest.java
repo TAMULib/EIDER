@@ -46,26 +46,6 @@ public class EntityControllerTest extends EntityTestData {
     private NameRepository nameRepo;
 
     @Test
-    public void testRedirectHeadToEntity() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        this.mockMvc
-            .perform(head("/entity/{id}", entity.getId().toString()))
-            .andExpect(status().isFound())
-            .andDo(document("redirect-head-to-entity",
-                pathParameters(
-                    parameterWithName("id").description("The UUID id of the Entity whose URL the response will redirect to")
-                )
-            ));
-    }
-    
-    @Test
-    public void testRedirectHeadToEntityWihtoutMatch() throws Exception {
-        this.mockMvc
-            .perform(head("/entity/{id}", UUID.randomUUID().toString()))
-            .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void testFindByUrl() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc
@@ -141,30 +121,6 @@ public class EntityControllerTest extends EntityTestData {
             ));
     }
 
-    @Test
-    public void testRedirectGetToEntity() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        this.mockMvc
-            .perform(get("/entity/{id}/redirect", entity.getId().toString())
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isFound())
-            .andDo(document("redirect-get-to-entity",
-                pathParameters(
-                    parameterWithName("id").description("The UUID id of the Entity whose URL the response will redirect to")
-                )
-            ));
-
-    }
-
-    @Test
-    public void testRedirectGetToEntityWithoutMatch() throws Exception {
-        this.mockMvc
-            .perform(get("/entity/{id}/redirect", UUID.randomUUID().toString()))
-            .andExpect(status().isNotFound());
-    }
-
     @AfterEach
     public void cleanUp() {
         identifierRepo.deleteAll();
@@ -174,4 +130,5 @@ public class EntityControllerTest extends EntityTestData {
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
     }
+
 }

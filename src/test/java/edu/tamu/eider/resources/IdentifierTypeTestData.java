@@ -56,4 +56,5 @@ public class IdentifierTypeTestData extends ApiDocumentation {
         TEST_IDENTIFIER_TYPE_1.setName(TEST_IDENTIFIER_TYPE_1_NAME);
         TEST_IDENTIFIER_TYPE_2.setName(TEST_IDENTIFIER_TYPE_2_NAME);
     }
+
 }
