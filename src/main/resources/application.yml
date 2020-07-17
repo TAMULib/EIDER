@@ -1,6 +1,6 @@
 server:
+  port: 9000
   servlet:
-    port: 9000
     contextPath:
 
 spring:
@@ -11,7 +11,7 @@ spring:
     url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     # platform: postgres
     # driverClassName: org.postgresql.Driver
-    # url: jdbc:postgresql://10.0.2.2:5432/eider
+    # url: jdbc:postgresql://localhost:5432/eider
 
     username: spring
     password: spring

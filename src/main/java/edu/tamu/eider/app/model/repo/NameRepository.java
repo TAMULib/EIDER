@@ -14,4 +14,5 @@ public interface NameRepository extends PagingAndSortingRepository<Name, UUID> {
 
     @RestResource(exported = false)
     public List<Name> findByName(String name);
+
 }
