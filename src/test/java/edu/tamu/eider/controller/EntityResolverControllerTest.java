@@ -141,9 +141,8 @@ public class EntityResolverControllerTest extends EntityTestData {
     @AfterEach
     public void cleanUp() {
         entityRepo.deleteAll();
-        // Entity id is somehow being set before the create entity test
+        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
-        TEST_ENTITY_2.setId(null);
     }
 
 }

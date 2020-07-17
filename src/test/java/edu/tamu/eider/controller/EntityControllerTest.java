@@ -121,7 +121,7 @@ public class EntityControllerTest extends EntityTestData {
         identifierRepo.deleteAll();
         nameRepo.deleteAll();
         entityRepo.deleteAll();
-        // Entity id is somehow being set before the create entity test
+        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
     }
