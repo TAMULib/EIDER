@@ -11,7 +11,7 @@ import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.Identifier;
 import edu.tamu.eider.app.model.IdentifierType;
 import edu.tamu.eider.app.model.Name;
-import edu.tamu.eider.app.model.converter.PlainTextHttpMessageConverter;
+import edu.tamu.eider.app.web.converter.PlainTextHttpMessageConverter;
 
 @Configuration
 public class AppRepositoryConfig implements RepositoryRestConfigurer {

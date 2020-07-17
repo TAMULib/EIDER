@@ -55,6 +55,7 @@ public class EntityResolverControllerTest extends EntityTestData {
             )
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+            .andExpect(content().string(entity.getId().toString()))
             .andDo(document("create-with-url",
                 requestParameters(
                     parameterWithName("url").description("The url of the desired Entity")
@@ -71,6 +72,7 @@ public class EntityResolverControllerTest extends EntityTestData {
             )
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+            .andExpect(content().string(entity.getUrl().toString()))
             .andDo(document("resolve-id",
                 pathParameters(
                     parameterWithName("id").description("The id on the desired Entity")
@@ -96,6 +98,7 @@ public class EntityResolverControllerTest extends EntityTestData {
             )
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+            .andExpect(content().string(entity.getId().toString()))
             .andDo(document("resolve-url",
                 requestParameters(
                     parameterWithName("url").description("The url on the desired Entity")

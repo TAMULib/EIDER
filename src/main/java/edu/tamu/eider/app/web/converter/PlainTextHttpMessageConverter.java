@@ -1,4 +1,4 @@
-package edu.tamu.eider.app.model.converter;
+package edu.tamu.eider.app.web.converter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +38,7 @@ public class PlainTextHttpMessageConverter extends AbstractHttpMessageConverter<
   protected void writeInternal(String value, HttpOutputMessage outputMessage)
       throws IOException, HttpMessageNotWritableException {
       try (PrintWriter writer = new PrintWriter(outputMessage.getBody())) {
-          writer.println(value);
+          writer.print(value);
       } 
   }
   
