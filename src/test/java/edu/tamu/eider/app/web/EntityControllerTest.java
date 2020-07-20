@@ -3,18 +3,14 @@ package edu.tamu.eider.controller;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.head;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.UUID;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -46,26 +42,6 @@ public class EntityControllerTest extends EntityTestData {
     private NameRepository nameRepo;
 
     @Test
-    public void testRedirectHeadToEntity() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        this.mockMvc
-            .perform(head("/entity/{id}", entity.getId().toString()))
-            .andExpect(status().isFound())
-            .andDo(document("redirect-head-to-entity",
-                pathParameters(
-                    parameterWithName("id").description("The UUID id of the Entity whose URL the response will redirect to")
-                )
-            ));
-    }
-    
-    @Test
-    public void testRedirectHeadToEntityWihtoutMatch() throws Exception {
-        this.mockMvc
-            .perform(head("/entity/{id}", UUID.randomUUID().toString()))
-            .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void testFindByUrl() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc
@@ -86,7 +62,6 @@ public class EntityControllerTest extends EntityTestData {
                 ),
                 ENTITY_RESPONSE_FIELDS_SNIPPET,
                 ENTITY_LINKS
-            
             ));
     }
 
@@ -141,37 +116,14 @@ public class EntityControllerTest extends EntityTestData {
             ));
     }
 
-    @Test
-    public void testRedirectGetToEntity() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        this.mockMvc
-            .perform(get("/entity/{id}/redirect", entity.getId().toString())
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isFound())
-            .andDo(document("redirect-get-to-entity",
-                pathParameters(
-                    parameterWithName("id").description("The UUID id of the Entity whose URL the response will redirect to")
-                )
-            ));
-
-    }
-
-    @Test
-    public void testRedirectGetToEntityWithoutMatch() throws Exception {
-        this.mockMvc
-            .perform(get("/entity/{id}/redirect", UUID.randomUUID().toString()))
-            .andExpect(status().isNotFound());
-    }
-
     @AfterEach
     public void cleanUp() {
         identifierRepo.deleteAll();
         nameRepo.deleteAll();
         entityRepo.deleteAll();
-        // Entity id is somehow being set before the create entity test
+        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
     }
+
 }

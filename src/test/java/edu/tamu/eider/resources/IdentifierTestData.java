@@ -96,4 +96,5 @@ public class IdentifierTestData extends ApiDocumentation {
         TEST_IDENTIFIER_2.setEndDate(TEST_IDENTIFIER_2_END_DATE);
         TEST_IDENTIFIER_2.setIdentifierType(TEST_IDENTIFIER_TYPE);
     }
+
 }

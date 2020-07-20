@@ -20,4 +20,5 @@ public class AppWebMvcConfig implements WebMvcConfigurer {
             .allowedMethods("GET", "DELETE", "PUT", "POST")
             .allowedHeaders("Origin", "Content-Type", "Access-Control-Allow-Origin", "x-requested-with", "data", "x-forwarded-for");
     }
+
 }

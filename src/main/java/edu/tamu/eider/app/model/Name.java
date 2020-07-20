@@ -42,4 +42,5 @@ public class Name {
         this.notes = notes;
         this.entity = entity;
     }
+
 }

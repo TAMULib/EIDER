@@ -29,4 +29,5 @@ public class IdentifierType {
 
     @Size(max = 250)
     private String name;
+
 }

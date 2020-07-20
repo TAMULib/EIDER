@@ -80,4 +80,5 @@ public class EntityTestData extends ApiDocumentation {
         TEST_IDENTIFIER.setIdentifier(TEST_IDENTIFIER_IDENTIFIER);
         TEST_IDENTIFIER.setNotes(TEST_IDENTIFIER_NOTES);
     }
+
 }

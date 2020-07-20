@@ -1,0 +1,50 @@
+== Simple Entity Resolver API
+
+Endpoints for basic Entity resolving
+
+=== Create with URL
+
+==== Request
+include::{snippets}/create-with-url/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/create-with-url/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/create-with-url/http-response.adoc[]
+
+
+=== Resolve Id
+
+==== Request
+include::{snippets}/resolve-id/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/resolve-id/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/resolve-id/http-response.adoc[]
+
+
+=== Resolve URL
+
+==== Request
+include::{snippets}/resolve-url/http-request.adoc[]
+
+==== Query Parameters
+include::{snippets}/resolve-url/request-parameters.adoc[]
+
+==== Response
+include::{snippets}/resolve-url/http-response.adoc[]
+
+
+=== Delete by Id
+
+==== Request
+include::{snippets}/delete-by-id/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/delete-by-id/path-parameters.adoc[]
+
+==== Response
+include::{snippets}/delete-by-id/http-response.adoc[]
