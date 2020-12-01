@@ -3,6 +3,8 @@ package edu.tamu.eider.app.model.repo;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -16,6 +18,7 @@ public interface IdentifierRepository extends PagingAndSortingRepository<Identif
     public boolean existsByIdentifier(String identifier);
 
     @RestResource(exported = false)
+    @EntityGraph(value = "graph.Identifier", type = EntityGraphType.LOAD)
     public Optional<Identifier> findByIdentifier(String identifier);
 
 }

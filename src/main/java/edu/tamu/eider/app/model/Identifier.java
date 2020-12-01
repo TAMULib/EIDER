@@ -7,18 +7,27 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+@NamedEntityGraph(
+  name = "graph.Identifier",
+  attributeNodes = {
+    @NamedAttributeNode(value = "entity"),
+    @NamedAttributeNode(value = "identifierType")
+  }
+)
 public class Identifier {
 
     @Id
