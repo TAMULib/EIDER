@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+@Table(name = "identifier_types")
 public class IdentifierType {
 
     @Id
