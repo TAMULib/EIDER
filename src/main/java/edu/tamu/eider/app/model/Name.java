@@ -6,10 +6,12 @@ import java.util.UUID;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+@NamedEntityGraph(
+  name = "graph.Name",
+  attributeNodes = {
+    @NamedAttributeNode(value = "entity")
+  }
+)
 public class Name {
 
     @Id
