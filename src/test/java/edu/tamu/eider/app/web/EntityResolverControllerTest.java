@@ -1,4 +1,4 @@
-package edu.tamu.eider.controller;
+package edu.tamu.eider.app.web;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;

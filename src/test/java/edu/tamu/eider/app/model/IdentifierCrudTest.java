@@ -1,4 +1,4 @@
-package edu.tamu.eider.repository;
+package edu.tamu.eider.app.model;
 
 import static org.hamcrest.core.StringContains.containsStringIgnoringCase;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -31,9 +31,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
-import edu.tamu.eider.app.model.Entity;
-import edu.tamu.eider.app.model.Identifier;
-import edu.tamu.eider.app.model.IdentifierType;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
 import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;

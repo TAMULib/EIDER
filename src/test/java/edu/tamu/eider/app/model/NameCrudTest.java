@@ -1,4 +1,4 @@
-package edu.tamu.eider.repository;
+package edu.tamu.eider.app.model;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.StringContains.containsStringIgnoringCase;
@@ -32,8 +32,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
-import edu.tamu.eider.app.model.Entity;
-import edu.tamu.eider.app.model.Name;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.NameRepository;
 import edu.tamu.eider.resources.NameTestData;
