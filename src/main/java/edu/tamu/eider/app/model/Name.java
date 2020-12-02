@@ -5,7 +5,9 @@ import java.util.UUID;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,6 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+@Table(name = "names", indexes = { @Index(columnList = "name") })
 public class Name {
 
     @Id
