@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -22,6 +24,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+@NamedEntityGraph(
+  name = "graph.Name",
+  attributeNodes = {
+    @NamedAttributeNode(value = "entity")
+  }
+)
 @Table(name = "names", indexes = { @Index(columnList = "name") })
 public class Name {
 
