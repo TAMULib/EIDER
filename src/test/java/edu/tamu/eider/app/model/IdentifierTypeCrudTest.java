@@ -1,4 +1,4 @@
-package edu.tamu.eider.repository;
+package edu.tamu.eider.app.model;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
-import edu.tamu.eider.app.model.IdentifierType;
 import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;
 import edu.tamu.eider.resources.IdentifierTypeTestData;
 
