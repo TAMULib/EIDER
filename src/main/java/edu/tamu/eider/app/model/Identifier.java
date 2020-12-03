@@ -42,7 +42,7 @@ public class Identifier {
     @ManyToOne(optional = false)
     private Entity entity;
 
-    @Size(max = 250)
+    @Size(min = 4, max = 64)
     @Column(unique = true)
     private String identifier;
 
@@ -50,7 +50,8 @@ public class Identifier {
 
     private LocalDate endDate;
 
-    @Size(max = 250)
+    @Size(max = 1024)
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
     @ManyToOne

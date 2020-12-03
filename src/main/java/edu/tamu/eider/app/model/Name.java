@@ -3,6 +3,7 @@ package edu.tamu.eider.app.model;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
@@ -40,14 +41,15 @@ public class Name {
     @ManyToOne(optional = false)
     private Entity entity;
 
-    @Size(max = 250)
+    @Size(min = 2, max = 255)
     private String name;
 
     private LocalDate startDate;
 
     private LocalDate endDate;
 
-    @Size(max = 250)
+    @Size(max = 1024)
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
     public Name(String name, String notes, Entity entity) {

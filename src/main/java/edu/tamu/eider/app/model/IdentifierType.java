@@ -31,7 +31,7 @@ public class IdentifierType {
     @Column(unique = true)
     private URL namespace;
 
-    @Size(max = 250)
+    @Size(min = 4, max = 128)
     private String name;
 
 }
