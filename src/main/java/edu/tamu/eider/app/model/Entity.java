@@ -32,10 +32,11 @@ public class Entity {
     @Column(unique = true)
     private URL url;
 
-    @Size(max = 250)
+    @Size(min = 2, max = 255)
     private String canonicalName;
 
-    @Size(max = 250)
+    @Size(max = 1024)
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
 }
