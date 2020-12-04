@@ -30,7 +30,7 @@ public class IdentifierType {
     private UUID id;
 
     @ValidUri
-    @Size(min = 4, max = 64)
+    @Size(max = 64)
     @Column(unique = true, nullable = false)
     private String namespace;
 

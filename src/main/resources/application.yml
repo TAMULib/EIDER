@@ -20,8 +20,6 @@ spring:
     username: spring
     password: spring
 
-    initialization-mode: always
-
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     # database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -32,6 +30,8 @@ spring:
 app:
   username: admin
   password: admin
+
+  default-identifier-type-name: Unspecified
 
   security:
     allow-access: http://localhost,http://localhost:9000,http://127.0.0.1

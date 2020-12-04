@@ -1,5 +1,7 @@
 package edu.tamu.eider.app.model.validator;
 
+import java.util.Objects;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -10,7 +12,7 @@ public class IdentifierValidator implements ConstraintValidator<ValidIdentifier,
 
     @Override
     public boolean isValid(Identifier identifier, ConstraintValidatorContext context) {
-        return identifier.getIdentifier().toLowerCase()
+        return Objects.isNull(identifier.getIdentifierType()) || identifier.getIdentifier().toLowerCase()
             .startsWith(identifier.getIdentifierType().getNamespace().toLowerCase());
     }
 
