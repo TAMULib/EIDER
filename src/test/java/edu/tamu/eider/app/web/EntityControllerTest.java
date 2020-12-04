@@ -23,6 +23,7 @@ import edu.tamu.eider.app.model.Identifier;
 import edu.tamu.eider.app.model.Name;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
+import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;
 import edu.tamu.eider.app.model.repo.NameRepository;
 import edu.tamu.eider.resources.EntityTestData;
 
@@ -37,6 +38,9 @@ public class EntityControllerTest extends EntityTestData {
 
     @Autowired
     private IdentifierRepository identifierRepo;
+
+    @Autowired
+    private IdentifierTypeRepository identifierTypeRepo;
 
     @Autowired
     private NameRepository nameRepo;
@@ -67,6 +71,7 @@ public class EntityControllerTest extends EntityTestData {
 
     @Test
     public void testFindByUrlFromIdentifier() throws Exception {
+        identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         Identifier identifier = identifierRepo.save(TEST_IDENTIFIER);
         this.mockMvc
@@ -119,11 +124,13 @@ public class EntityControllerTest extends EntityTestData {
     @AfterEach
     public void cleanUp() {
         identifierRepo.deleteAll();
+        identifierTypeRepo.deleteAll();
         nameRepo.deleteAll();
         entityRepo.deleteAll();
-        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
+        TEST_IDENTIFIER.setId(null);
+        TEST_IDENTIFIER_TYPE.setId(null);
     }
 
 }

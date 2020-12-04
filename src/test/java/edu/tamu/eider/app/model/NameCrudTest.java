@@ -85,8 +85,7 @@ public class NameCrudTest extends NameTestData {
 
     @Test
     public void testGetName() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        TEST_NAME_1.setEntity(entity);
+        entityRepo.save(TEST_ENTITY_1);
         Name name = nameRepo.save(TEST_NAME_1);
         this.mockMvc
             .perform(get("/name/{id}", name.getId().toString())
@@ -111,7 +110,6 @@ public class NameCrudTest extends NameTestData {
     @Test
     public void testCreateName() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
-        TEST_NAME_1.setEntity(entity);
         Map<String, String> nameMap = new HashMap<>();
         nameMap.put("name", TEST_NAME_1_NAME);
         nameMap.put("notes", TEST_NAME_1_NOTES);
@@ -141,7 +139,6 @@ public class NameCrudTest extends NameTestData {
     @Test
     public void testReplaceName() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
-        TEST_NAME_1.setEntity(entity);
         Name name = nameRepo.save(TEST_NAME_1);
         Map<String, String> nameMap = new HashMap<>();
         nameMap.put("name", TEST_NAME_2_NAME);
@@ -177,7 +174,6 @@ public class NameCrudTest extends NameTestData {
     @Test
     public void testUpdateName() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
-        TEST_NAME_1.setEntity(entity);
         Name name = nameRepo.save(TEST_NAME_1);
         Map<String, String> nameMap = new HashMap<>();
         nameMap.put("name", TEST_NAME_2_NAME);
@@ -212,8 +208,7 @@ public class NameCrudTest extends NameTestData {
 
     @Test
     public void testDeleteName() throws Exception {
-        Entity entity = entityRepo.save(TEST_ENTITY_1);
-        TEST_NAME_1.setEntity(entity);
+        entityRepo.save(TEST_ENTITY_1);
         Name name = nameRepo.save(TEST_NAME_1);
         this.mockMvc
             .perform(delete("/name/{id}", name.getId().toString())
@@ -231,5 +226,8 @@ public class NameCrudTest extends NameTestData {
     public void cleanUp() {
         nameRepo.deleteAll();
         entityRepo.deleteAll();
+        TEST_ENTITY_1.setId(null);
+        TEST_NAME_1.setId(null);
+        TEST_NAME_2.setId(null);
     }
 }

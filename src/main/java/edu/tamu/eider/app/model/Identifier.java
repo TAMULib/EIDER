@@ -63,7 +63,7 @@ public class Identifier {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private IdentifierType identifierType;
 
 }
