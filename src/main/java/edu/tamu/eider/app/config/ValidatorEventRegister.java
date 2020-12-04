@@ -15,7 +15,7 @@ import org.springframework.validation.Validator;
 public class ValidatorEventRegister implements InitializingBean {
 
     @Autowired
-    ValidatingRepositoryEventListener validatingRepositoryEventListener;
+    private ValidatingRepositoryEventListener validatingRepositoryEventListener;
 
     @Autowired
     private Map<String, Validator> validators;

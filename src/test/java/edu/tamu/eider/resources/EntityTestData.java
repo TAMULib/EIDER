@@ -18,6 +18,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import edu.tamu.eider.ApiDocumentation;
 import edu.tamu.eider.app.model.Entity;
 import edu.tamu.eider.app.model.Identifier;
+import edu.tamu.eider.app.model.IdentifierType;
 
 public class EntityTestData extends ApiDocumentation {
 
@@ -29,10 +30,13 @@ public class EntityTestData extends ApiDocumentation {
     protected static final String TEST_ENTITY_2_URL_STRING = "http://www.example.com/2";
     protected static final String TEST_IDENTIFIER_IDENTIFIER = "http://www.example.com/3";
     protected static final String TEST_IDENTIFIER_NOTES = "Identifier Notes";
+    protected static final String TEST_IDENTIFIER_TYPE_NAME = "Test Identifier Type";
+    protected static final String TEST_IDENTIFIER_TYPE_NAMESPACE_STRING = "http://www.example.com";
 
     protected static final Entity TEST_ENTITY_1 = new Entity();
     protected static final Entity TEST_ENTITY_2 = new Entity();
     protected static final Identifier TEST_IDENTIFIER = new Identifier();
+    protected static final IdentifierType TEST_IDENTIFIER_TYPE = new IdentifierType();
 
     protected static final RequestFieldsSnippet ENTITY_REQUEST_FIELDS_SNIPPET = requestFields(
         fieldWithPath("url").description("The URL of the Entity"),
@@ -68,17 +72,22 @@ public class EntityTestData extends ApiDocumentation {
         try {
             TEST_ENTITY_1.setUrl(new URL(TEST_ENTITY_1_URL_STRING));
             TEST_ENTITY_2.setUrl(new URL(TEST_ENTITY_2_URL_STRING));
+            TEST_IDENTIFIER_TYPE.setNamespace(new URL(TEST_IDENTIFIER_TYPE_NAMESPACE_STRING));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
         TEST_ENTITY_1.setCanonicalName(TEST_ENTITY_1_CANONICAL_NAME);
         TEST_ENTITY_1.setNotes(TEST_ENTITY_1_NOTES);
         TEST_ENTITY_2.setCanonicalName(TEST_ENTITY_2_CANONICAL_NAME);
         TEST_ENTITY_2.setNotes(TEST_ENTITY_2_NOTES);
 
+        TEST_IDENTIFIER_TYPE.setName(TEST_IDENTIFIER_TYPE_NAME);
+
         TEST_IDENTIFIER.setEntity(TEST_ENTITY_1);
         TEST_IDENTIFIER.setIdentifier(TEST_IDENTIFIER_IDENTIFIER);
         TEST_IDENTIFIER.setNotes(TEST_IDENTIFIER_NOTES);
+        TEST_IDENTIFIER.setIdentifierType(TEST_IDENTIFIER_TYPE);
     }
 
 }

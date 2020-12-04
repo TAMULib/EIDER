@@ -74,7 +74,6 @@ public class EntityRedirectControllerTest extends EntityTestData {
     public void cleanUp() {
         identifierRepo.deleteAll();
         entityRepo.deleteAll();
-        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
     }

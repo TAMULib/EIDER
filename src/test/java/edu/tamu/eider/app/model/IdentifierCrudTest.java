@@ -244,9 +244,10 @@ public class IdentifierCrudTest extends IdentifierTestData {
     @AfterEach
     public void cleanUp() {
         identifierRepo.deleteAll();
-        entityRepo.deleteAll();
         identifierTypeRepo.deleteAll();
+        entityRepo.deleteAll();
         TEST_ENTITY_1.setId(null);
+        TEST_IDENTIFIER_1.setId(null);
         TEST_IDENTIFIER_TYPE.setId(null);
     }
 }

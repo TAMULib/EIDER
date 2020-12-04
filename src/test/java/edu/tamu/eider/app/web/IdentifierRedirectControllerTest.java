@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import edu.tamu.eider.app.model.Identifier;
 import edu.tamu.eider.app.model.repo.EntityRepository;
 import edu.tamu.eider.app.model.repo.IdentifierRepository;
+import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;
 import edu.tamu.eider.resources.EntityTestData;
 
 public class IdentifierRedirectControllerTest extends EntityTestData {
@@ -27,9 +28,13 @@ public class IdentifierRedirectControllerTest extends EntityTestData {
     @Autowired
     private IdentifierRepository identifierRepo;
 
+    @Autowired
+    private IdentifierTypeRepository identifierTypeRepo;
+
     @Test
     public void testHeadRedirectIdentifier() throws Exception {
         entityRepo.save(TEST_ENTITY_1);
+        identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
         Identifier identifier = identifierRepo.save(TEST_IDENTIFIER);
         this.mockMvc
             .perform(head("/identifier").param("url", identifier.getIdentifier()))
@@ -51,6 +56,7 @@ public class IdentifierRedirectControllerTest extends EntityTestData {
     @Test
     public void testGetRedirectIdentifier() throws Exception {
         entityRepo.save(TEST_ENTITY_1);
+        identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
         Identifier identifier = identifierRepo.save(TEST_IDENTIFIER);
         this.mockMvc
             .perform(get("/identifier/redirect")
@@ -77,9 +83,11 @@ public class IdentifierRedirectControllerTest extends EntityTestData {
     @AfterEach
     public void cleanUp() {
         identifierRepo.deleteAll();
+        identifierTypeRepo.deleteAll();
         entityRepo.deleteAll();
-        // null out entity id as entity id is assigned after save
         TEST_ENTITY_1.setId(null);
+        TEST_IDENTIFIER.setId(null);
+        TEST_IDENTIFIER_TYPE.setId(null);
     }
 
 }

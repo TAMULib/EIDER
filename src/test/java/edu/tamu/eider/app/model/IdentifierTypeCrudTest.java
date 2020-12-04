@@ -178,8 +178,8 @@ public class IdentifierTypeCrudTest extends IdentifierTypeTestData {
 
     @AfterEach
     public void cleanUp() {
+        identifierTypeRepo.deleteAll();
         TEST_IDENTIFIER_TYPE_1.setId(null);
         TEST_IDENTIFIER_TYPE_2.setId(null);
-        identifierTypeRepo.deleteAll();
     }
 }

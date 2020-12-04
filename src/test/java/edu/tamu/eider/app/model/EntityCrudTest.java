@@ -176,5 +176,7 @@ public class EntityCrudTest extends EntityTestData {
     @AfterEach
     public void cleanUp() {
         entityRepo.deleteAll();
+        TEST_ENTITY_1.setId(null);
+        TEST_ENTITY_2.setId(null);
     }
 }

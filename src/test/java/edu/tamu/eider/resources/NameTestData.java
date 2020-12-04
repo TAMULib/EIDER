@@ -69,10 +69,10 @@ public class NameTestData extends ApiDocumentation {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        TEST_NAME_1.setName(TEST_NAME_1_NAME);
-        TEST_NAME_1.setNotes(TEST_NAME_1_NOTES);
         TEST_NAME_1.setStartDate(TEST_NAME_1_START_DATE);
         TEST_NAME_1.setEndDate(TEST_NAME_1_END_DATE);
+        TEST_NAME_2.setStartDate(TEST_NAME_2_START_DATE);
+        TEST_NAME_2.setEndDate(TEST_NAME_2_END_DATE);
     }
 
 }

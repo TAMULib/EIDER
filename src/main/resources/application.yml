@@ -5,6 +5,8 @@ server:
 
 spring:
 
+  devtools.restart.enabled: true
+
   datasource:
     platform: h2
     driverClassName: org.h2.Driver

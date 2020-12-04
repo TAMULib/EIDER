@@ -29,7 +29,7 @@ public class IdentifierType {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private URL namespace;
 
     @NotNull
