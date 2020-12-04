@@ -1,6 +1,5 @@
 package edu.tamu.eider.app.model;
 
-import java.net.URL;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -14,6 +13,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import edu.tamu.eider.app.model.annotation.ValidHttpUrl;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(
   name = "entities",
   indexes = {
-    @Index(columnList = "url")
+    @Index(columnList = "url", unique = true)
   }
 )
 // @formatter:on
@@ -38,8 +38,9 @@ public class Entity {
     private UUID id;
 
     @NotNull
+    @ValidHttpUrl
     @Column(unique = true, nullable = false)
-    private URL url;
+    private String url;
 
     @Size(min = 2, max = 255)
     private String canonicalName;

@@ -2,7 +2,6 @@ package edu.tamu.eider.app.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
-import java.net.URL;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +23,19 @@ public class IdentifierRedirectController {
     private IdentifierRepository identifierRepo;
 
     @RequestMapping(method = HEAD, path = "/identifier")
-    public RedirectView headRedirectIdentifier(@RequestParam(required = true) final URL url) {
+    public RedirectView headRedirectIdentifier(@RequestParam(required = true) final String url) {
         return redirectIdentifier(url);
     }
 
     @GetMapping("/identifier/redirect")
-    public RedirectView getRedirectIdentifier(@RequestParam(required = true) final URL url) {
+    public RedirectView getRedirectIdentifier(@RequestParam(required = true) final String url) {
         return redirectIdentifier(url);
     }
 
-    private RedirectView redirectIdentifier(final URL url) {
-        final Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url.toString());
+    private RedirectView redirectIdentifier(final String url) {
+        final Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url);
         if (identifierOption.isPresent()) {
-            return new RedirectView(identifierOption.get().getEntity().getUrl().toString());
+            return new RedirectView(identifierOption.get().getEntity().getUrl());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to resolve identifier for provided url");
         }

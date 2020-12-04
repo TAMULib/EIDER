@@ -8,8 +8,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDate;
 
 import org.springframework.restdocs.hypermedia.LinksSnippet;
@@ -71,15 +69,11 @@ public class IdentifierTestData extends ApiDocumentation {
     );
 
     static {
-        try {
-            TEST_ENTITY_1.setUrl(new URL(TEST_ENTITY_1_URL_STRING));
-            TEST_IDENTIFIER_TYPE.setNamespace(new URL(TEST_IDENTIFIER_TYPE_NAMESPACE_STRING));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        TEST_ENTITY_1.setUrl(TEST_ENTITY_1_URL_STRING);
         TEST_ENTITY_1.setCanonicalName(TEST_ENTITY_1_CANONICAL_NAME);
         TEST_ENTITY_1.setNotes(TEST_ENTITY_1_NOTES);
 
+        TEST_IDENTIFIER_TYPE.setNamespace(TEST_IDENTIFIER_TYPE_NAMESPACE_STRING);
         TEST_IDENTIFIER_TYPE.setName(TEST_IDENTIFIER_TYPE_NAME);
 
         TEST_IDENTIFIER_1.setEntity(TEST_ENTITY_1);

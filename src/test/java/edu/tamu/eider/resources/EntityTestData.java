@@ -8,9 +8,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.springframework.restdocs.hypermedia.LinksSnippet;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
@@ -69,19 +66,14 @@ public class EntityTestData extends ApiDocumentation {
     );
 
     static {
-        try {
-            TEST_ENTITY_1.setUrl(new URL(TEST_ENTITY_1_URL_STRING));
-            TEST_ENTITY_2.setUrl(new URL(TEST_ENTITY_2_URL_STRING));
-            TEST_IDENTIFIER_TYPE.setNamespace(new URL(TEST_IDENTIFIER_TYPE_NAMESPACE_STRING));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
+        TEST_ENTITY_1.setUrl(TEST_ENTITY_1_URL_STRING);
         TEST_ENTITY_1.setCanonicalName(TEST_ENTITY_1_CANONICAL_NAME);
         TEST_ENTITY_1.setNotes(TEST_ENTITY_1_NOTES);
+        TEST_ENTITY_2.setUrl(TEST_ENTITY_2_URL_STRING);
         TEST_ENTITY_2.setCanonicalName(TEST_ENTITY_2_CANONICAL_NAME);
         TEST_ENTITY_2.setNotes(TEST_ENTITY_2_NOTES);
 
+        TEST_IDENTIFIER_TYPE.setNamespace(TEST_IDENTIFIER_TYPE_NAMESPACE_STRING);
         TEST_IDENTIFIER_TYPE.setName(TEST_IDENTIFIER_TYPE_NAME);
 
         TEST_IDENTIFIER.setEntity(TEST_ENTITY_1);

@@ -8,8 +8,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDate;
 
 import org.springframework.restdocs.hypermedia.LinksSnippet;
@@ -64,11 +62,7 @@ public class NameTestData extends ApiDocumentation {
     );
 
     static {
-        try {
-            TEST_ENTITY_1.setUrl(new URL(TEST_ENTITY_1_URL_STRING));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        TEST_ENTITY_1.setUrl(TEST_ENTITY_1_URL_STRING);
         TEST_NAME_1.setStartDate(TEST_NAME_1_START_DATE);
         TEST_NAME_1.setEndDate(TEST_NAME_1_END_DATE);
         TEST_NAME_2.setStartDate(TEST_NAME_2_START_DATE);

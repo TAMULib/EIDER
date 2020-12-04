@@ -1,6 +1,5 @@
 package edu.tamu.eider.app.web;
 
-import java.net.URL;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class EntityController {
     }
 
     @GetMapping("/entity/url")
-    public @ResponseBody PersistentEntityResource findByUrl(@RequestParam(required = true) URL url, PersistentEntityResourceAssembler assembler) {
+    public @ResponseBody PersistentEntityResource findByUrl(@RequestParam(required = true) String url, PersistentEntityResourceAssembler assembler) {
         Optional<Entity> entityOption;
         Optional<Identifier> identifierOption = identifierRepo.findByIdentifier(url.toString());
         if (identifierOption.isPresent()) {

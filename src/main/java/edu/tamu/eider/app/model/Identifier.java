@@ -11,12 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import edu.tamu.eider.app.model.annotation.ValidIdentifier;
+import edu.tamu.eider.app.model.annotation.ValidUri;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@ValidIdentifier
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
 // @formatter:off
@@ -37,7 +39,7 @@ import lombok.Setter;
 @Table(
   name = "identifiers",
   indexes = {
-    @Index(columnList = "identifier")
+    @Index(columnList = "identifier", unique = true)
   }
 )
 // @formatter:on
@@ -50,8 +52,8 @@ public class Identifier {
     @ManyToOne(optional = false)
     private Entity entity;
 
-    @NotNull
-    @Size(min = 4, max = 64)
+    @ValidUri
+    @Size(min = 4, max = 255)
     @Column(unique = true, nullable = false)
     private String identifier;
 

@@ -8,9 +8,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.springframework.restdocs.hypermedia.LinksSnippet;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
@@ -47,13 +44,9 @@ public class IdentifierTypeTestData extends ApiDocumentation {
     );
 
     static {
-        try {
-            TEST_IDENTIFIER_TYPE_1.setNamespace(new URL(TEST_IDENTIFIER_TYPE_1_NAMESPACE_STRING));
-            TEST_IDENTIFIER_TYPE_2.setNamespace(new URL(TEST_IDENTIFIER_TYPE_2_NAMESPACE_STRING));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        TEST_IDENTIFIER_TYPE_1.setNamespace(TEST_IDENTIFIER_TYPE_1_NAMESPACE_STRING);
         TEST_IDENTIFIER_TYPE_1.setName(TEST_IDENTIFIER_TYPE_1_NAME);
+        TEST_IDENTIFIER_TYPE_2.setNamespace(TEST_IDENTIFIER_TYPE_2_NAMESPACE_STRING);
         TEST_IDENTIFIER_TYPE_2.setName(TEST_IDENTIFIER_TYPE_2_NAME);
     }
 

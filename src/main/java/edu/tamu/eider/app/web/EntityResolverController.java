@@ -4,8 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public class EntityResolverController {
   private EntityRepository entityRepo;
 
   @RequestMapping(method = POST, path = "/entity", produces = MediaType.TEXT_PLAIN_VALUE)
-  public @ResponseBody ResponseEntity<String> createWithUrl(@RequestParam(required = true) URL url) throws URISyntaxException {
+  public @ResponseBody ResponseEntity<String> createWithUrl(@RequestParam(required = true) String url) throws URISyntaxException {
       Optional<Entity> existingEntity = entityRepo.findByUrl(url);
       if (existingEntity.isPresent()) {
         return ResponseEntity.ok()
@@ -40,7 +40,7 @@ public class EntityResolverController {
       Entity entity = new Entity();
       entity.setUrl(url);
       entity = entityRepo.save(entity);
-      return ResponseEntity.created(url.toURI())
+      return ResponseEntity.created(new URI(url))
         .contentType(MediaType.TEXT_PLAIN)
         .body(entity.getId().toString());
   }
@@ -55,7 +55,7 @@ public class EntityResolverController {
   }
 
   @RequestMapping(method = GET, path = "/entity", produces = MediaType.TEXT_PLAIN_VALUE)
-  public @ResponseBody ResponseEntity<String> resolveUrl(@RequestParam(required = true) URL url) {
+  public @ResponseBody ResponseEntity<String> resolveUrl(@RequestParam(required = true) String url) {
       return ResponseEntity.ok()
           .contentType(MediaType.TEXT_PLAIN)
           .body(entityRepo.findByUrl(url)
