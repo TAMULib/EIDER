@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,14 +23,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
-@Table(name = "entities", indexes = { @Index(columnList = "url") })
+// @formatter:off
+@Table(
+  name = "entities",
+  indexes = {
+    @Index(columnList = "url")
+  }
+)
+// @formatter:on
 public class Entity {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
+    @NotNull
+    @Column(unique = true, nullable = false)
     private URL url;
 
     @Size(min = 2, max = 255)

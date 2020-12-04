@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,13 +26,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @javax.persistence.Entity
 @JsonInclude(Include.NON_NULL)
+// @formatter:off
 @NamedEntityGraph(
   name = "graph.Name",
   attributeNodes = {
     @NamedAttributeNode(value = "entity")
   }
 )
-@Table(name = "names", indexes = { @Index(columnList = "name") })
+@Table(
+  name = "names",
+  indexes = {
+    @Index(columnList = "name")
+  }
+)
+// @formatter:on
 public class Name {
 
     @Id
@@ -41,7 +49,9 @@ public class Name {
     @ManyToOne(optional = false)
     private Entity entity;
 
+    @NotNull
     @Size(min = 2, max = 255)
+    @Column(nullable = false)
     private String name;
 
     private LocalDate startDate;
