@@ -30,8 +30,8 @@ public class IdentifierType {
     private UUID id;
 
     @ValidUri
-    @Size(max = 64)
-    @Column(unique = true, nullable = false)
+    @Size(max = 512)
+    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
     private String namespace;
 
     @NotNull

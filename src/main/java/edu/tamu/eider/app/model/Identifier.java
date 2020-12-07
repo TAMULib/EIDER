@@ -53,15 +53,15 @@ public class Identifier {
     private Entity entity;
 
     @ValidUri
-    @Size(min = 4, max = 255)
-    @Column(unique = true, nullable = false)
+    @Size(min = 4, max = 1024)
+    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
     private String identifier;
 
     private LocalDate startDate;
 
     private LocalDate endDate;
 
-    @Size(max = 1024)
+    @Size(max = 2048)
     @Column(columnDefinition = "TEXT")
     private String notes;
 

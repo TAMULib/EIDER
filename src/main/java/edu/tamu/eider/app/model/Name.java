@@ -58,7 +58,7 @@ public class Name {
 
     private LocalDate endDate;
 
-    @Size(max = 1024)
+    @Size(max = 2048)
     @Column(columnDefinition = "TEXT")
     private String notes;
 

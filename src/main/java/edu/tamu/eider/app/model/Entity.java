@@ -39,13 +39,14 @@ public class Entity {
 
     @NotNull
     @ValidHttpUrl
-    @Column(unique = true, nullable = false)
+    @Size(min = 4, max = 1024)
+    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
     private String url;
 
     @Size(min = 2, max = 255)
     private String canonicalName;
 
-    @Size(max = 1024)
+    @Size(max = 2048)
     @Column(columnDefinition = "TEXT")
     private String notes;
 
