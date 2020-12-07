@@ -7,9 +7,11 @@ spring:
 
   devtools.restart.enabled: true
 
+  h2.console.enabled: true
+
   datasource:
     platform: h2
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     # platform: postgres
     # driverClassName: org.postgresql.Driver
@@ -22,12 +24,14 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     # database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-    show-sql: false
-    hibernate.ddl-auto: update
+    show-sql: true
+    hibernate.ddl-auto: create-drop
 
 app:
   username: admin
   password: admin
+
+  default-identifier-type-name: Unspecified
 
   security:
     allow-access: http://localhost,http://localhost:9000,http://127.0.0.1

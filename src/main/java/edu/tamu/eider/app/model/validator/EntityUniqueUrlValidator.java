@@ -1,6 +1,5 @@
 package edu.tamu.eider.app.model.validator;
 
-import java.net.URL;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,8 @@ public abstract class EntityUniqueUrlValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors e) {
-        URL url = ((Entity) obj).getUrl();
-        if (Objects.nonNull(url) && identifierRepo.existsByIdentifier(url.toString())) {
+        String url = ((Entity) obj).getUrl();
+        if (Objects.nonNull(url) && identifierRepo.existsByIdentifier(url)) {
             e.rejectValue("url", "url.not.unique", "There is already an Identifier with the given url");
         }
     }

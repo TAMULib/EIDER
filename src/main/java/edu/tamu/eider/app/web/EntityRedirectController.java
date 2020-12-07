@@ -36,7 +36,7 @@ public class EntityRedirectController {
     private RedirectView redirectEntity(final UUID uuid) {
         Optional<Entity> entityOption = entityRepo.findById(uuid);
         if (entityOption.isPresent()) {
-            return new RedirectView(entityOption.get().getUrl().toString());
+            return new RedirectView(entityOption.get().getUrl());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find Entity for provided id");
         }

@@ -24,6 +24,8 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 
 import edu.tamu.eider.app.model.repo.EntityRepository;
+import edu.tamu.eider.app.model.repo.IdentifierRepository;
+import edu.tamu.eider.app.model.repo.IdentifierTypeRepository;
 import edu.tamu.eider.resources.EntityTestData;
 
 public class EntityCrudTest extends EntityTestData {
@@ -36,6 +38,12 @@ public class EntityCrudTest extends EntityTestData {
 
     @Autowired
     private EntityRepository entityRepo;
+
+    @Autowired
+    private IdentifierRepository identifierRepo;
+
+    @Autowired
+    private IdentifierTypeRepository identifierTypeRepo;
 
     @Test
     public void testGetAllEntities() throws Exception {
@@ -110,6 +118,38 @@ public class EntityCrudTest extends EntityTestData {
     }
 
     @Test
+    public void testCreateEntityWithDuplicateUrl() throws Exception {
+        Entity testEntity1 = entityRepo.save(TEST_ENTITY_1);
+        Entity entity = new Entity();
+        entity.setUrl(testEntity1.getUrl());
+        this.mockMvc
+            .perform(post("/entity")
+                .with(httpBasic(username, password))
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(entity))
+            )
+            .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void testCreateEntityWithDuplicateIdentifier() throws Exception {
+        entityRepo.save(TEST_ENTITY_1);
+        identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
+        Identifier identifier = identifierRepo.save(TEST_IDENTIFIER);
+        Entity entity = new Entity();
+        entity.setUrl(identifier.getIdentifier());
+        this.mockMvc
+            .perform(post("/entity")
+                .with(httpBasic(username, password))
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(entity))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void testReplaceEntity() throws Exception {
         Entity entity = entityRepo.save(TEST_ENTITY_1);
         this.mockMvc.perform(put("/entity/{id}", entity.getId().toString())
@@ -175,7 +215,11 @@ public class EntityCrudTest extends EntityTestData {
 
     @AfterEach
     public void cleanUp() {
+        identifierRepo.deleteAll();
+        identifierTypeRepo.deleteAll();
         entityRepo.deleteAll();
+        TEST_IDENTIFIER.setId(null);
+        TEST_IDENTIFIER_TYPE.setId(null);
         TEST_ENTITY_1.setId(null);
         TEST_ENTITY_2.setId(null);
     }

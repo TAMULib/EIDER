@@ -48,6 +48,10 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .cors()
             .and()
+                .headers()
+                    .frameOptions()
+                        .sameOrigin()
+            .and()
                 .csrf()
                     .disable();
     }

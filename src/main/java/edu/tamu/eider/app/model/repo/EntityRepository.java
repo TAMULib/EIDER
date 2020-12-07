@@ -1,6 +1,5 @@
 package edu.tamu.eider.app.model.repo;
 
-import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,9 +13,9 @@ import edu.tamu.eider.app.model.Entity;
 public interface EntityRepository extends PagingAndSortingRepository<Entity, UUID> {
 
     @RestResource(exported = false)
-    public Optional<Entity> findByUrl(URL url);
+    public Optional<Entity> findByUrl(String url);
 
     @RestResource(exported = false)
-    public boolean existsByUrl(URL url);
+    public boolean existsByUrl(String url);
 
 }

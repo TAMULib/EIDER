@@ -31,4 +31,5 @@ public class ValidatorEventRegister implements InitializingBean {
                 .ifPresent(p -> validatingRepositoryEventListener.addValidator(p, entry.getValue()));
         }
     }
+
 }

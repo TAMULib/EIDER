@@ -143,6 +143,49 @@ public class IdentifierCrudTest extends IdentifierTestData {
     }
 
     @Test
+    public void testCreateIdentifierWithDuplicateidentifier() throws Exception {
+        IdentifierType identifierType = identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        Identifier identifier = identifierRepo.save(TEST_IDENTIFIER_1);
+        Map<String, String> identifierMap = new HashMap<>();
+        identifierMap.put("identifier", identifier.getIdentifier());
+        identifierMap.put("notes", identifier.getNotes());
+        identifierMap.put("startDate", identifier.getStartDate().toString());
+        identifierMap.put("endDate", identifier.getEndDate().toString());
+        identifierMap.put("entity", linkTo(EntityRepository.class).slash(entity.getId()).withSelfRel().getHref());
+        identifierMap.put("identifierType", linkTo(IdentifierTypeRepository.class).slash(identifierType.getId()).withSelfRel().getHref());
+        this.mockMvc
+            .perform(post("/identifier")
+                .with(httpBasic(username, password))
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(identifierMap))
+            )
+            .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void testCreateIdentifierWithDuplicateEntityUrl() throws Exception {
+        IdentifierType identifierType = identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
+        Entity entity = entityRepo.save(TEST_ENTITY_1);
+        Map<String, String> identifierMap = new HashMap<>();
+        identifierMap.put("identifier", TEST_ENTITY_1_URL_STRING);
+        identifierMap.put("notes", TEST_IDENTIFIER_1_NOTES);
+        identifierMap.put("startDate", TEST_IDENTIFIER_1_START_DATE.toString());
+        identifierMap.put("endDate", TEST_IDENTIFIER_1_END_DATE.toString());
+        identifierMap.put("entity", linkTo(EntityRepository.class).slash(entity.getId()).withSelfRel().getHref());
+        identifierMap.put("identifierType", linkTo(IdentifierTypeRepository.class).slash(identifierType.getId()).withSelfRel().getHref());
+        this.mockMvc
+            .perform(post("/identifier")
+                .with(httpBasic(username, password))
+                .accept(MediaTypes.HAL_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(identifierMap))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void testReplaceIdentifier() throws Exception {
         IdentifierType identifierType = identifierTypeRepo.save(TEST_IDENTIFIER_TYPE);
         Entity entity = entityRepo.save(TEST_ENTITY_1);

@@ -1,6 +1,5 @@
 package edu.tamu.eider.app.model;
 
-import java.net.URL;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import edu.tamu.eider.app.model.annotation.ValidUri;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @javax.persistence.Entity
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_EMPTY)
 @Table(name = "identifier_types")
 public class IdentifierType {
 
@@ -29,11 +29,13 @@ public class IdentifierType {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
-    private URL namespace;
+    @ValidUri
+    @Size(max = 512)
+    @Column(length = 512, unique = true, nullable = false)
+    private String namespace;
 
     @NotNull
-    @Size(min = 4, max = 128)
+    @Size(min = 2, max = 128)
     @Column(nullable = false)
     private String name;
 
