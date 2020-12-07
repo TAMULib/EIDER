@@ -54,7 +54,7 @@ public class Identifier {
 
     @ValidUri
     @Size(min = 4, max = 1024)
-    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
+    @Column(length = 1024, unique = true, nullable = false)
     private String identifier;
 
     private LocalDate startDate;

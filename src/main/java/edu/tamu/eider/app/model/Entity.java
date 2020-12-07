@@ -40,7 +40,7 @@ public class Entity {
     @NotNull
     @ValidHttpUrl
     @Size(min = 4, max = 1024)
-    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
+    @Column(length = 1024, unique = true, nullable = false)
     private String url;
 
     @Size(min = 2, max = 255)

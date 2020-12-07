@@ -31,7 +31,7 @@ public class IdentifierType {
 
     @ValidUri
     @Size(max = 512)
-    @Column(columnDefinition = "TEXT", unique = true, nullable = false)
+    @Column(length = 512, unique = true, nullable = false)
     private String namespace;
 
     @NotNull
