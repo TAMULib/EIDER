@@ -27,11 +27,11 @@ jobs:
         uses: MikeEdgar/github-action@raw_coverage_file
         with:
           github-token: ${{ secrets.github_token }}
-          path-to-file: './coveralls.json'
+          path-to-file: 'target/coveralls.json'
           coverage-format: raw
 
       - name: "Deploy GH-Pages"
-        # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           github_token: ${{ secrets.github_token }}
