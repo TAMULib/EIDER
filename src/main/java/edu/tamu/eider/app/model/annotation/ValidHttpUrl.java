@@ -18,7 +18,7 @@ import edu.tamu.eider.app.model.validator.HttpUrlValidator;
 @Constraint(validatedBy = HttpUrlValidator.class)
 public @interface ValidHttpUrl {
 
-    String message() default "Inavalid URL";
+    String message() default "Invalid URL";
 
     Class<?>[] groups() default {};
 
