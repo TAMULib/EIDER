@@ -17,7 +17,7 @@ public class EntityProcessor implements RepresentationModelProcessor<EntityModel
     public EntityModel<Entity> process(EntityModel<Entity> model) {
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         model.add(
-            of(baseUrl + "entity/{id}/redirect")
+            of(baseUrl + "/entity/{id}/redirect")
                 .withRel(LinkRelation.of("redirect"))
                 .expand(model.getContent().getId())
         );
