@@ -20,15 +20,14 @@ WORKDIR /EIDER
 COPY --from=maven /target/eider*.jar ./EIDER.jar
 
 #Settings
-ENV LOGGING_LEVEL_TAMU='INFO'
 ENV SERVER_PORT='9000'
-ENV DATABASE_URL='jdbc:postgresql://host.docker.internal:5432/eider'
-ENV DATABASE_DDL_AUTO='create-drop'
-ENV DATABASE_PLATFORM='postgres'
-ENV DATABASE_DRIVER_CLASS_NAME='org.postgresql.Driver'
-ENV DATABASE_JPA_PLATFORM='org.hibernate.dialect.PostgreSQLDialect'
-ENV DATABASE_USERNAME='spring'
-ENV DATABASE_PASSWORD='spring'
+ENV SPRING_SQL_INIT_PLATFORM='h2'
+ENV SPRING_DATASOURCE_DRIVERCLASSNAME='org.h2.Driver'
+ENV SPRING_DATASOURCE_URL='jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
+ENV SPRING_JPA_DATABASEPLATFORM='org.hibernate.dialect.H2Dialect'
+ENV SPRING_JPA_HIBERNATE_DDLAUTO='create-drop'
+ENV SPRING_DATASOURCE_USERNAME='spring'
+ENV SPRING_DATASOURCE_PASSWORD='spring'
 ENV APP_USERNAME='admin'
 ENV APP_PASSWORD='admin'
 
@@ -36,9 +35,4 @@ ENV APP_PASSWORD='admin'
 EXPOSE ${SERVER_PORT}
 
 #run java command
-CMD java -jar ./EIDER.jar --logging.level.org.tamu=${LOGGING_LEVEL_TAMU} \
-  --server.port=${SERVER_PORT} --spring.datasource.url=${DATABASE_URL} \
-  --spring.jpa.hibernate.ddl-auto=${DATABASE_DDL_AUTO} --spring.sql.init.platform=${DATABASE_PLATFORM} \
-  --spring.datasource.driver-class-name=${DATABASE_DRIVER_CLASS_NAME} --spring.jpa.database-platform=${DATABASE_JPA_PLATFORM} \
-  --spring.datasource.username=${DATABASE_USERNAME} --spring.datasource.password=${DATABASE_PASSWORD} \
-  --app.username=${APP_USERNAME} --app.password=${APP_PASSWORD}
+CMD java -jar ./EIDER.jar
