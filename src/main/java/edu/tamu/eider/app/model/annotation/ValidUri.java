@@ -18,7 +18,7 @@ import edu.tamu.eider.app.model.validator.UriValidator;
 @Constraint(validatedBy = UriValidator.class)
 public @interface ValidUri {
 
-    String message() default "Inavalid URI";
+    String message() default "Invalid URI";
 
     Class<?>[] groups() default {};
 
