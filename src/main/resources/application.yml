@@ -3,6 +3,13 @@ server:
   servlet:
     context-path:
 
+logging:
+  file:
+    name: logs/eider.log
+  level:
+    edu.tamu: INFO
+    org.springframework: INFO
+
 spring:
 
   devtools.restart.enabled: true

@@ -3,6 +3,14 @@ server:
   servlet:
     context-path:
 
+# (is overwritten by logback-test.xml)
+logging:
+  file:
+    name: logs/eider-test.log
+  level:
+    edu.tamu: INFO
+    org.springframework: INFO
+
 spring:
 
   datasource:
