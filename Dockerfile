@@ -1,38 +1,62 @@
-# build base image
+# Settings.
+ARG USER_ID=3001
+ARG USER_NAME=eider
+ARG HOME_DIR=/$USER_NAME
+ARG SOURCE_DIR=$HOME_DIR/source
+
+# Maven stage.
 FROM maven:3-openjdk-11-slim as maven
+ARG USER_ID
+ARG USER_NAME
+ARG HOME_DIR
+ARG SOURCE_DIR
 
-# copy pom.xml
+# Create the group (use a high ID to attempt to avoid conflits).
+RUN groupadd -g $USER_ID $USER_NAME
+
+# Create the user (use a high ID to attempt to avoid conflits).
+RUN useradd -d $HOME_DIR -m -u $USER_ID -g $USER_ID $USER_NAME
+
+# Update the system.
+RUN apt-get update && apt-get upgrade -y
+
+# Set deployment directory.
+WORKDIR $SOURCE_DIR
+
+# Copy files over.
 COPY ./pom.xml ./pom.xml
-
-# copy src files
 COPY ./src ./src
 
-# build
-RUN mvn package
+# Assign file permissions.
+RUN chown -R ${USER_ID}:${USER_ID} ${SOURCE_DIR}
 
-# final base image
+# Login as user.
+USER $USER_NAME
+
+# Build.
+RUN mvn package -Pjar -DskipTests=true
+
+# Switch to Normal JRE Stage.
 FROM openjdk:11-jre-slim
+ARG USER_ID
+ARG USER_NAME
+ARG HOME_DIR
+ARG SOURCE_DIR
 
-# set deployment directory
-WORKDIR /EIDER
+# Create the group (use a high ID to attempt to avoid conflits).
+RUN groupadd -g $USER_ID $USER_NAME
 
-# copy over the built artifact from the maven image
-COPY --from=maven /target/eider*.jar ./EIDER.jar
+# Create the user (use a high ID to attempt to avoid conflits).
+RUN useradd -d $HOME_DIR -m -u $USER_ID -g $USER_ID $USER_NAME
 
-#Settings
-ENV SERVER_PORT='9000'
-ENV SPRING_SQL_INIT_PLATFORM='h2'
-ENV SPRING_DATASOURCE_DRIVERCLASSNAME='org.h2.Driver'
-ENV SPRING_DATASOURCE_URL='jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
-ENV SPRING_JPA_DATABASEPLATFORM='org.hibernate.dialect.H2Dialect'
-ENV SPRING_JPA_HIBERNATE_DDLAUTO='create-drop'
-ENV SPRING_DATASOURCE_USERNAME='spring'
-ENV SPRING_DATASOURCE_PASSWORD='spring'
-ENV APP_USERNAME='admin'
-ENV APP_PASSWORD='admin'
+# Login as user.
+USER $USER_NAME
 
-#expose port
-EXPOSE ${SERVER_PORT}
+# Set deployment directory.
+WORKDIR $HOME_DIR
 
-#run java command
-CMD java -jar ./EIDER.jar
+# Copy over the built artifact from the maven image.
+COPY --from=maven $SOURCE_DIR/target/ROOT.jar ./eider.jar
+
+# Run java command.
+CMD ["java", "-jar", "./eider.jar"]
