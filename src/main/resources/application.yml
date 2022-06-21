@@ -1,7 +1,14 @@
 server:
   port: 9000
   servlet:
-    contextPath:
+    context-path:
+
+logging:
+  file:
+    name: logs/eider.log
+  level:
+    edu.tamu: INFO
+    org.springframework: INFO
 
 spring:
 
