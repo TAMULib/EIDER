@@ -1,9 +1,11 @@
 [![Build Status][build-badge]][build-status]
 [![Coverage Status][coverage-badge]][coverage-status]
 
-# Ecosystem Identifier (EIDER) Service
+# Ecosystem Identifier Service
 
 <a name="readme-top"></a>
+
+A Spring backend for the *Ecosystem Identifier (EIDER) Service* developed and maintained by [Texas A&M University Libraries][tamu-library].
 
 This service provides ecosystem identifier generation.
 
@@ -15,13 +17,15 @@ This service provides ecosystem identifier generation.
 
 </details>
 
+
 ## Developer Documentation
 
 - [Contributors Documentation][contribute-guide]
 - [Deployment Documentation][deployment-guide]
-- [API Documentation](api-guide)
+- [API Documentation][api-guide]
 
 <div align="right">(<a href="#readme-top">back to top</a>)</div>
+
 
 ## Additional Resources
 
@@ -29,9 +33,10 @@ Please feel free to file any issues concerning EIDER Service to the issues secti
 
 Any questions concerning EIDER Service can be directed to helpdesk@library.tamu.edu.
 
+Copyright © 2022 Texas A&M University Libraries under the [MIT License][license].
+
 <div align="right">(<a href="#readme-top">back to top</a>)</div>
 
-Copyright © 2022 Texas A&M University Libraries under the [The MIT License][license].
 
 <!-- LINKS -->
 [build-badge]: https://github.com/TAMULib/EIDER/workflows/Build/badge.svg
