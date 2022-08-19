@@ -16,11 +16,11 @@ For now, **production** deployments are identical to **development** deployments
 To manually use `docker` rather than `docker-compose`, run the following:
 
 ```shell
-docker image build -t eiderservice .
-docker run -it eiderservice
+docker image build -t eider .
+docker run -it eider
 ```
 
-<sub>_* Note: `-t eiderservice` and `-it eiderservice` may be changed to another tag name as desired, such as `-t developing_on_this` and `-it developing_on_this`._</sub><br>
+<sub>_* Note: `-t eider` and `-it eider` may be changed to another tag name as desired, such as `-t developing_on_this` and `-it developing_on_this`._</sub><br>
 
 <div align="right">(<a href="#readme-top">back to top</a>)</div>
 
