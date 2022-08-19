@@ -7,7 +7,8 @@
 
 A Spring backend for the *Ecosystem Identifier (EIDER) Service* developed and maintained by [Texas A&M University Libraries][tamu-library].
 
-This service provides ecosystem identifier generation.
+This service mints identifiers for entities in the digital asset management ecosystem.
+It also affords registration of alternate identifiers and provides redirection from alternate identifiers to entities.
 
 <details>
 <summary>Table of contents</summary>
